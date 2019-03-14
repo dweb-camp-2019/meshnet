@@ -1,9 +1,9 @@
 Questions & Comments
 ====================
 
-This is the place to collect questions and comments that have come up in the planning stages.
+_This is the place to collect questions and comments that have come up in the planning stages.
 If you want to learn more or contribute to the project, this is probably a good read after looking at the [README](README.md).
-Feel free to add new questions or send comments to this page as pull requests.
+Feel free to add new questions or send comments to this page as pull requests._
 
 >What is your WAN connection(s)?
 >- Will there be a routed public IP block?

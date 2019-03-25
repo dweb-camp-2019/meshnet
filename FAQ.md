@@ -19,7 +19,7 @@ I don't expect static IPs would be needed as I don't expect to be hosting servic
 >- 900Mhz can be a useful--if quite slow--backup
 >- Be wary of using any 60Ghz PtP option as fog can really hinder link performance
 
-We need the core areas to have redundancy against at least one radio failure, and have ways to monitor the overall link status of the network.
+We need the core areas to have redundancy against at least one radio failure, and have ways to monitor the overall link status of the network. Gateway selection and availability should be automatically announced/advertised with our routing protocol.
 
 We should get some [disaster.radio](https://disaster.radio) distributed at key locations, perhaps as a separate network where people can connect to a camp-global chat.
 
@@ -48,5 +48,7 @@ Inclined to start very simple, and add things as needed. In April there will be 
 >- SNMP based monitoring platforms - LibreNMS, PRTG
 >- Input data into InfluxDB for data retrieval
 >- Dashboards like Grafana, Kabana, etc.
+
+We are imagining pushing metrics to InfluxDB, where SNMP monitoring tools can populate at a preconfigured endpoint. SNMP is going to be readily available by most vendors of systems/networking equipment. For those devices/metrics that aren't SNMP-ready, we can use a series of distributed scripts populating it.
 
 I think this is an important piece we need to plan, not only as network operators but to also map it to physical topologies so participants of the Camp can discuss and map the digital world to a self-contained network we can visually see its infrastructures.

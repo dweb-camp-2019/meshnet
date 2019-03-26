@@ -66,7 +66,7 @@ An alternative device we can use as access point is the [MikroTik mANTBox 15s](h
 ### Network switch, router, and application server
 
 The [SolidRun ClearFog Pro](https://www.solid-run.com/product/SRM6828S00D01GE000P01CE/) will be used as gigabit network switch and router.
-It has 7 gigabit ports, used to connect with the directional and access point radios, Internet gateways, as well as devices offering local services to the network (e.g. Raspberry Pi running a [Scuttlebutt](https://www.scuttlebutt.nz) Pub Server, or devices running [Dat](https://datproject.org) and [IPFS](https://ipfs.io) to provide the network with distributed storage capacity).
+It has 7 gigabit ports, used to connect with the directional and access point radios, Internet gateways, as well as devices offering local services to the network (e.g. Raspberry Pi running a [Scuttlebutt](https://www.scuttlebutt.nz) Pub Server or [GUN](https://github.com/amark/gun) peer, or devices running [Dat](https://datproject.org) and [IPFS](https://ipfs.io) to provide the network with distributed storage capacity).
 In the case that more ports are needed, Internet Archive has Ubiquiti ToughSwitch and other 48-port switches to provide.
 The ClearFog Pro has a 1.6 GHz ARM processor and 1 GB RAM, so we can run some applications directly on the board that are traditionally unable to run on routers.
 

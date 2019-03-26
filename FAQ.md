@@ -52,3 +52,9 @@ Inclined to start very simple, and add things as needed. In April there will be 
 We are imagining pushing metrics to InfluxDB, where SNMP monitoring tools can populate at a preconfigured endpoint. SNMP is going to be readily available by most vendors of systems/networking equipment. For those devices/metrics that aren't SNMP-ready, we can use a series of distributed scripts populating it.
 
 I think this is an important piece we need to plan, not only as network operators but to also map it to physical topologies so participants of the Camp can discuss and map the digital world to a self-contained network we can visually see its infrastructures.
+
+>If this is really a decentralized camp why would it have a centralized network with a bunch of authoritative services?
+
+The meshnet is _a_ network that we can spend some time to plan ahead of time, and can test at the venue, to make sure there is power at the nodes, etc. People are also free to bring their own network gear and set up say... a LoRa network or a parallel WiFi network.
+
+The building will be collaborative, with human processes drawn from community networks rather than "here's your IP and no you cannot connect your own radios to it". We will discuss the protocols on GitHub and if someone brings a radio and antenna they should be able to hook into the network too. The hardware build is very much part of the camp! If someone brings a solar node I'd be thrilled :)

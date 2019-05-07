@@ -12,6 +12,12 @@ and make inclusive spaces to learn from each other and build capacity around hum
 
 If you would like to get involved in creating this meshnet, join our meshnet chat at [#dweb-camp-2019-mesh:matrix.org](https://riot.im/app/#/room/#dweb-camp-2019-mesh:matrix.org) to share your ideas. You may also file Issues and send Pull Requests, but first please check out our [FAQ](FAQ.md).
 
+## Research Notes
+
+- [Client Device Roaming on Meshnets](research/client-device-roaming-on-meshnets.md)
+- [Babel + WireGuard Mesh](research/babel-wireguard-mesh.md)
+- [Meshnet Site Survey @ The Farm](research/site-survey/README.md)
+
 ## Goals
 
 This document is the proposal to build a local mesh network with the following goals in mind:

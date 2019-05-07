@@ -9,7 +9,7 @@ Upon arriving to The Farm on March 31, the first thing I realized was how huge t
 
 Let's start with what connectivity currently exists at The Farm based on a [rough map of the zones we defined for the Camp](https://dwebcamp.org/proposals-spaces/).
 
-![internet](images/internet.jpg?raw=true)
+![sitemap](images/sitemap.jpg?raw=true)
 
 The _Hacking Zone_ is the most well connected space, where staff offices and indoor facilities like the _Tea Lounge_ currently exist. Inside these buildings, one can connect to the _Indoor AP_ SSID made available with Ubiquiti APs wired to a switch in one of the offices. Beyond this cluster of buildings, one can connect to the _Outdoor AP_ which is wirelessly connected in a mesh topology using the omnidirectional [Ubiquiti UniFi Mesh devices](https://unifi-mesh.ui.com). The Internet access speeds are similar but outdoor coverage is more spotty, and having 500 people would likely overwhelm the sparsely distributed outdoor devices and the existing Internet backhaul.
 

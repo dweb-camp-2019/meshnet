@@ -1,0 +1,49 @@
+# Install networking tools
+sudo apt-get update
+sudo apt-get install -y dnsmasq git iperf3
+
+# Install babeld
+git clone git://github.com/jech/babeld.git
+cd babeld
+sudo make install
+
+# Disable wpa_supplicant
+sudo systemctl disable wpa_supplicant
+sudo systemctl stop wpa_supplicant
+sudo killall wpa_supplicant
+
+# Enable IP forwarding
+echo '1' | sudo tee --append /proc/sys/net/ipv4/ip_forward
+sudo sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
+sudo sed -i 's/#net.ipv6.conf.all.forwarding=1/net.ipv6.conf.all.forwarding=1/' /etc/sysctl.conf
+
+# Configure network interfaces
+sudo cp /etc/network/interfaces /etc/network/interfaces.bak
+sudo tee --append /etc/network/interfaces << END
+
+auto lo
+iface lo inet loopback
+
+allow-hotplug eth0
+iface eth0 inet static
+    address 10.10.0.1
+    netmask 255.255.0.0
+    network 10.10.0.0
+    broadcast 10.10.255.255
+END
+
+# Configure DHCP server on eth0
+sudo cp /etc/dnsmasq.conf /etc/dnsmasq.conf.bak
+sudo tee /etc/dnsmasq.conf << END
+dhcp-range=10.10.0.2,10.10.255.254,255.255.0.0,4h
+bind-interfaces
+END
+
+# Disable DHCP client on eth0
+sudo cp /etc/dhcpcd.conf /etc/dhcpcd.conf.bak
+sudo tee --append /etc/dhcpcd.conf << END
+denyinterfaces eth0
+END
+
+# Start babeld
+#babeld -C 'redistribute ip 10.10.0.0/16 le 24 metric 128' eth0 mesh0

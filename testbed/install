@@ -1,3 +1,5 @@
+set -e
+
 # Install networking tools
 sudo apt-get update
 sudo apt-get install -y dnsmasq git iperf3
@@ -10,6 +12,9 @@ sudo make install
 # Disable wpa_supplicant
 sudo systemctl disable wpa_supplicant
 sudo systemctl stop wpa_supplicant
+sudo systemctl mask wpa_supplicant
+sudo mv /usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service /usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service.bak
+sudo mv /usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service /usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service.bak
 sudo killall wpa_supplicant
 
 # Enable IP forwarding
@@ -17,13 +22,14 @@ echo '1' | sudo tee --append /proc/sys/net/ipv4/ip_forward
 sudo sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
 sudo sed -i 's/#net.ipv6.conf.all.forwarding=1/net.ipv6.conf.all.forwarding=1/' /etc/sysctl.conf
 
-# Configure network interfaces
-sudo cp /etc/network/interfaces /etc/network/interfaces.bak
-sudo tee --append /etc/network/interfaces << END
-
+# Configure lo interface as loopback
+sudo tee /etc/network/interfaces.d/lo << END
 auto lo
 iface lo inet loopback
+END
 
+# Configure eth0 interface to behave as a switch port
+sudo tee /etc/network/interfaces.d/eth0 << END
 allow-hotplug eth0
 iface eth0 inet static
     address 10.10.0.1
@@ -31,6 +37,46 @@ iface eth0 inet static
     network 10.10.0.0
     broadcast 10.10.255.255
 END
+
+# Configure mesh0 (wlan0) interface to behave as wireless mesh link
+sudo tee /etc/network/interfaces.d/wlan0 << END
+auto wlan0
+iface wlan0 inet manual
+END
+
+sudo tee /usr/bin/mesh << END
+#!/bin/bash
+
+sudo iw reg set US
+sudo ifconfig wlan0 down
+sudo ip link set wlan0 name mesh0
+sudo iw mesh0 set type ibss
+sudo ifconfig mesh0 up
+sudo iw dev mesh0 ibss join dwebcamp 2412
+mesh0_ip=\$(ifconfig eth0 | grep inet6 | awk '{print \$2}' | cut -d: -f1-5 | sed 's/\$/:ffff/')
+sudo ip addr add \$mesh0_ip dev mesh0
+END
+
+sudo tee /etc/systemd/system/mesh.service << END
+[Unit]
+Description=Mesh Service
+Wants=network.target
+After=network.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/mesh
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target
+END
+
+sudo chmod 755 /usr/bin/mesh
+sudo chmod 644 /etc/systemd/system/mesh.service
+sudo systemctl daemon-reload
+sudo systemctl enable mesh.service
 
 # Configure DHCP server on eth0
 sudo cp /etc/dnsmasq.conf /etc/dnsmasq.conf.bak

@@ -108,7 +108,6 @@ RestartSec=10s
 WantedBy=multi-user.target
 END
 
-sudo chmod 755 /usr/bin/babeld
 sudo chmod 644 /etc/systemd/system/babeld.service
 sudo systemctl daemon-reload
 sudo systemctl enable babeld.service

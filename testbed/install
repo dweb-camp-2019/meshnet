@@ -15,6 +15,7 @@ sudo systemctl stop wpa_supplicant
 sudo systemctl mask wpa_supplicant
 sudo mv /usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service /usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service.bak
 sudo mv /usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service /usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service.bak
+sudo mv /sbin/wpa_supplicant /sbin/wpa_supplicant.bak
 sudo killall wpa_supplicant
 
 # Enable IP forwarding
@@ -53,8 +54,6 @@ sudo ip link set wlan0 name mesh0
 sudo iw mesh0 set type ibss
 sudo ifconfig mesh0 up
 sudo iw dev mesh0 ibss join dwebcamp 2412
-mesh0_ip=\$(ifconfig eth0 | grep inet6 | awk '{print \$2}' | cut -d: -f1-5 | sed 's/\$/:ffff/')
-sudo ip addr add \$mesh0_ip dev mesh0
 END
 
 sudo tee /etc/systemd/system/mesh.service << END
@@ -93,3 +92,10 @@ END
 
 # Start babeld
 #babeld -C 'redistribute ip 10.10.0.0/16 le 24 metric 128' eth0 mesh0
+
+# Display instructions upon installation completion
+echo "Installation completed. This Raspberry Pi will now power off!"
+echo "When you power this device back on, it will use its wireless interface to mesh with another similarly configured Raspberry Pi, and any device plugged into the ethernet port will receive an IP address in the 10.10.0.0/16 subnet. Your device will behave as if it is plugged into the DWeb Camp network, assigned an IP address unique within the local network and reachable by any device connected to the network because Babel is redistributing routes to all devices. It is probably a good idea to unplug the Raspberry Pi from your home router before powering on to avoid having two DHCP servers on your home network."
+
+# Power off device
+sudo poweroff

@@ -4,11 +4,6 @@ set -e
 sudo apt-get update
 sudo apt-get install -y dnsmasq git iperf3
 
-# Install babeld
-git clone git://github.com/jech/babeld.git
-cd babeld
-sudo make install
-
 # Disable wpa_supplicant
 sudo systemctl disable wpa_supplicant
 sudo systemctl stop wpa_supplicant
@@ -90,8 +85,33 @@ sudo tee --append /etc/dhcpcd.conf << END
 denyinterfaces eth0
 END
 
-# Start babeld
-#babeld -C 'redistribute ip 10.10.0.0/16 le 24 metric 128' eth0 mesh0
+# Install babeld
+git clone git://github.com/jech/babeld.git
+cd babeld
+sudo make install
+
+# Configure babeld to use eth0 and mesh0 and redistribute 10.10.0.0/16 routes
+sudo tee /etc/systemd/system/babeld.service << END
+[Unit]
+Description=Babeld Service
+Wants=network.target
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/babeld -G 999 -L /var/log/babeld.log -C 'redistribute ip 10.10.0.0/16 le 24 metric 128' eth0 mesh0
+ExecStop=/bin/kill -s QUIT $MAINPID
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target
+END
+
+sudo chmod 755 /usr/bin/babeld
+sudo chmod 644 /etc/systemd/system/babeld.service
+sudo systemctl daemon-reload
+sudo systemctl enable babeld.service
 
 # Display instructions upon installation completion
 echo "Installation completed. This Raspberry Pi will now power off!"

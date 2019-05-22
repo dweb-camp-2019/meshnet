@@ -116,8 +116,8 @@ sudo systemctl daemon-reload
 sudo systemctl enable babeld.service
 
 # Display instructions upon installation completion
-echo "Installation completed. This Raspberry Pi will now power off!"
-echo "When you power this device back on, it will use its wireless interface to mesh with another similarly configured Raspberry Pi, and any device plugged into the ethernet port will receive an IP address in the 10.$subnet.0.0/16 subnet. Your device will behave as if it is plugged into the DWeb Camp network, assigned an IP address unique within the local network and reachable by any device connected to the network because Babel is redistributing routes to all devices. It is probably a good idea to unplug the Raspberry Pi from your home router before powering on to avoid having two DHCP servers on your home network."
+echo -e "Installation completed. This Raspberry Pi will now power off!"
+echo -e "When you power this device back on, it will use its wireless interface to mesh with another similarly configured Raspberry Pi, and any device plugged into the ethernet port will receive an IP address in the 10.$subnet.0.0/16 subnet. Your device will behave as if it is plugged into the DWeb Camp network, assigned an IP address unique within the local network and reachable by any device connected to the network because Babel is redistributing routes to all devices. It is probably a good idea to unplug the Raspberry Pi from your home router before powering on to avoid having two DHCP servers on your home network."
 
 # Power off device
 sudo poweroff

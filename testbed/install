@@ -24,14 +24,17 @@ auto lo
 iface lo inet loopback
 END
 
+# Randomize subnet segment for switch port DHCP
+subnet=$((RANDOM % 256))
+
 # Configure eth0 interface to behave as a switch port
 sudo tee /etc/network/interfaces.d/eth0 << END
 allow-hotplug eth0
 iface eth0 inet static
-    address 10.10.0.1
+    address 10.$subnet.0.1
     netmask 255.255.0.0
-    network 10.10.0.0
-    broadcast 10.10.255.255
+    network 10.$subnet.0.0
+    broadcast 10.$subnet.255.255
 END
 
 # Configure mesh0 (wlan0) interface to behave as wireless mesh link
@@ -75,7 +78,7 @@ sudo systemctl enable mesh.service
 # Configure DHCP server on eth0
 sudo cp /etc/dnsmasq.conf /etc/dnsmasq.conf.bak
 sudo tee /etc/dnsmasq.conf << END
-dhcp-range=10.10.0.2,10.10.255.254,255.255.0.0,4h
+dhcp-range=10.$subnet.0.2,10.$subnet.255.254,255.255.0.0,4h
 bind-interfaces
 END
 
@@ -90,7 +93,7 @@ git clone git://github.com/jech/babeld.git
 cd babeld
 sudo make install
 
-# Configure babeld to use eth0 and mesh0 and redistribute 10.10.0.0/16 routes
+# Configure babeld to use eth0 and mesh0 and redistribute 10.$subnet.0.0/16 routes
 sudo tee /etc/systemd/system/babeld.service << END
 [Unit]
 Description=Babeld Service
@@ -99,7 +102,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/babeld -G 999 -L /var/log/babeld.log -C 'redistribute ip 10.10.0.0/16 le 24 metric 128' eth0 mesh0
+ExecStart=/usr/local/bin/babeld -G 999 -L /var/log/babeld.log -C 'redistribute ip 10.$subnet.0.0/16 le 24 metric 128' eth0 mesh0
 ExecStop=/bin/kill -s QUIT $MAINPID
 Restart=on-failure
 RestartSec=10s
@@ -114,7 +117,7 @@ sudo systemctl enable babeld.service
 
 # Display instructions upon installation completion
 echo "Installation completed. This Raspberry Pi will now power off!"
-echo "When you power this device back on, it will use its wireless interface to mesh with another similarly configured Raspberry Pi, and any device plugged into the ethernet port will receive an IP address in the 10.10.0.0/16 subnet. Your device will behave as if it is plugged into the DWeb Camp network, assigned an IP address unique within the local network and reachable by any device connected to the network because Babel is redistributing routes to all devices. It is probably a good idea to unplug the Raspberry Pi from your home router before powering on to avoid having two DHCP servers on your home network."
+echo "When you power this device back on, it will use its wireless interface to mesh with another similarly configured Raspberry Pi, and any device plugged into the ethernet port will receive an IP address in the 10.$subnet.0.0/16 subnet. Your device will behave as if it is plugged into the DWeb Camp network, assigned an IP address unique within the local network and reachable by any device connected to the network because Babel is redistributing routes to all devices. It is probably a good idea to unplug the Raspberry Pi from your home router before powering on to avoid having two DHCP servers on your home network."
 
 # Power off device
 sudo poweroff

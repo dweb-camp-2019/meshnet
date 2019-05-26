@@ -93,7 +93,13 @@ git clone git://github.com/jech/babeld.git
 cd babeld
 sudo make install
 
-# Configure babeld to use eth0 and mesh0 and redistribute 10.$subnet.0.0/16 routes
+# Configure babeld to redistribute 10.$subnet.0.0/16 routes
+sudo tee /etc/babeld.conf << END
+redistribute ip 10.$subnet.0.0/16 le 16 metric 128
+redistribute local deny
+END
+
+# Install babeld service
 sudo tee /etc/systemd/system/babeld.service << END
 [Unit]
 Description=Babeld Service
@@ -102,7 +108,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/babeld -G 999 -L /var/log/babeld.log -C 'redistribute ip 10.$subnet.0.0/16 le 24 metric 128' eth0 mesh0
+ExecStart=/usr/local/bin/babeld -G 999 -L /var/log/babeld.log -c /etc/babeld.conf eth0 mesh0
 ExecStop=/bin/kill -s QUIT $MAINPID
 Restart=on-failure
 RestartSec=10s

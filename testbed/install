@@ -51,6 +51,7 @@ sudo ifconfig wlan0 down
 sudo ip link set wlan0 name mesh0
 sudo iw mesh0 set type ibss
 sudo ifconfig mesh0 up
+sudo ifconfig mesh0 192.168.133.$subnet/24
 sudo iw dev mesh0 ibss join dwebcamp 2412
 END
 

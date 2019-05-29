@@ -38,3 +38,4 @@ This document is the proposal to build a local mesh network with the following g
 - [Client Device Roaming on Meshnets](research/client-device-roaming-on-meshnets.md)
 - [Babel + WireGuard Mesh](research/babel-wireguard-mesh.md)
 - [Meshnet Site Survey @ The Farm](research/site-survey/README.md)
+- [Testnet for DWeb Camp Applications](testnet/README.md)

@@ -1,0 +1,130 @@
+set -e
+
+# Install networking tools
+sudo apt-get update
+sudo apt-get install -y dnsmasq git iperf3 vim
+
+# Disable wpa_supplicant
+sudo systemctl disable wpa_supplicant
+sudo systemctl stop wpa_supplicant
+sudo systemctl mask wpa_supplicant
+sudo mv /usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service /usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service.bak
+sudo mv /usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service /usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service.bak
+sudo mv /sbin/wpa_supplicant /sbin/wpa_supplicant.bak
+sudo killall wpa_supplicant
+
+# Enable IP forwarding
+echo '1' | sudo tee --append /proc/sys/net/ipv4/ip_forward
+sudo sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
+sudo sed -i 's/#net.ipv6.conf.all.forwarding=1/net.ipv6.conf.all.forwarding=1/' /etc/sysctl.conf
+
+# Configure lo interface as loopback
+sudo tee /etc/network/interfaces.d/lo << END
+auto lo
+iface lo inet loopback
+END
+
+# Randomize subnet segment for switch port DHCP
+subnet=$((RANDOM % 256))
+
+# Configure eth0 interface to behave as a switch port
+sudo tee /etc/network/interfaces.d/eth0 << END
+allow-hotplug eth0
+iface eth0 inet static
+    address 10.$subnet.0.1
+    netmask 255.255.0.0
+    network 10.$subnet.0.0
+    broadcast 10.$subnet.255.255
+END
+
+# Configure mesh0 (wlan0) interface to behave as wireless mesh link
+sudo tee /etc/network/interfaces.d/wlan0 << END
+auto wlan0
+iface wlan0 inet manual
+END
+
+sudo tee /usr/bin/mesh << END
+#!/bin/bash
+
+sudo iw reg set US
+sudo ifconfig wlan0 down
+sudo ip link set wlan0 name mesh0
+sudo iw mesh0 set type ibss
+sudo ifconfig mesh0 up
+sudo ifconfig mesh0 192.168.133.$subnet/24
+sudo iw dev mesh0 ibss join dwebcamp 2412
+END
+
+sudo tee /etc/systemd/system/mesh.service << END
+[Unit]
+Description=Mesh Service
+Wants=network.target
+After=network.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/mesh
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target
+END
+
+sudo chmod 755 /usr/bin/mesh
+sudo chmod 644 /etc/systemd/system/mesh.service
+sudo systemctl daemon-reload
+sudo systemctl enable mesh.service
+
+# Configure DHCP server on eth0
+sudo cp /etc/dnsmasq.conf /etc/dnsmasq.conf.bak
+sudo tee /etc/dnsmasq.conf << END
+dhcp-range=10.$subnet.0.2,10.$subnet.255.254,255.255.0.0,4h
+bind-interfaces
+END
+
+# Disable DHCP client on eth0
+sudo cp /etc/dhcpcd.conf /etc/dhcpcd.conf.bak
+sudo tee --append /etc/dhcpcd.conf << END
+denyinterfaces eth0
+END
+
+# Install babeld
+git clone git://github.com/jech/babeld.git
+cd babeld
+sudo make install
+
+# Configure babeld to redistribute 10.$subnet.0.0/16 routes
+sudo tee /etc/babeld.conf << END
+redistribute ip 10.$subnet.0.0/16 le 16 metric 128
+redistribute local deny
+END
+
+# Install babeld service
+sudo tee /etc/systemd/system/babeld.service << END
+[Unit]
+Description=Babeld Service
+Wants=network.target
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/babeld -G 999 -L /var/log/babeld.log -c /etc/babeld.conf eth0 mesh0
+ExecStop=/bin/kill -s QUIT $MAINPID
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target
+END
+
+sudo chmod 644 /etc/systemd/system/babeld.service
+sudo systemctl daemon-reload
+sudo systemctl enable babeld.service
+
+# Display instructions upon installation completion
+echo -e "Installation completed. This Raspberry Pi will now power off!"
+echo -e "When you power this device back on, it will use its wireless interface to mesh with another similarly configured Raspberry Pi, and any device plugged into the ethernet port will receive an IP address in the 10.$subnet.0.0/16 subnet. Your device will behave as if it is plugged into the DWeb Camp network, assigned an IP address unique within the local network and reachable by any device connected to the network because Babel is redistributing routes to all devices. It is probably a good idea to unplug the Raspberry Pi from your home router before powering on to avoid having two DHCP servers on your home network."
+
+# Power off device
+sudo poweroff

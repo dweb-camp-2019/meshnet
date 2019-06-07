@@ -130,7 +130,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/babeld -G 999 -L /var/log/babeld.log -c /etc/babeld.conf wan lan
+ExecStart=/usr/local/bin/babeld -G 999 -L /var/log/babeld.log -c /etc/babeld.conf wan
 ExecStop=/bin/kill -s QUIT $MAINPID
 Restart=on-failure
 RestartSec=10s

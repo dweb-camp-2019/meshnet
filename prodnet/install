@@ -1,0 +1,140 @@
+set -e
+
+# Install networking tools
+sudo apt-get update || true
+sudo apt-get install -y dnsmasq
+
+# Disable wpa_supplicant
+sudo systemctl disable wpa_supplicant
+sudo systemctl stop wpa_supplicant
+sudo systemctl mask wpa_supplicant
+sudo mv /usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service /usr/share/dbus-1/system-services/fi.epitest.hostap.WPASupplicant.service.bak
+sudo mv /usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service /usr/share/dbus-1/system-services/fi.w1.wpa_supplicant1.service.bak
+sudo mv /sbin/wpa_supplicant /sbin/wpa_supplicant.bak
+sudo killall wpa_supplicant || true
+
+# Enable IP forwarding
+echo '1' | sudo tee --append /proc/sys/net/ipv4/ip_forward
+sudo sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
+sudo sed -i 's/#net.ipv6.conf.all.forwarding=1/net.ipv6.conf.all.forwarding=1/' /etc/sysctl.conf
+
+# Disable systemd management of network interfaces except to bring up eth0
+sudo rm -rf /etc/systemd/network/*
+sudo tee /etc/systemd/network/10-eth0.network << END
+[Match]
+Name=eth0
+
+[Network]
+DHCP=ipv4
+END
+
+# Configure to use /etc/network/interfaces.d
+sudo mv /etc/network/interfaces /etc/network/interfaces.bak
+sudo tee /etc/network/interfaces << END
+source /etc/network/interfaces.d/*
+END
+
+# Configure lo interface as loopback
+sudo tee /etc/network/interfaces.d/lo << END
+auto lo
+iface lo inet loopback
+END
+
+# Randomize subnet segment for switch port DHCP
+subnet=$((RANDOM % 256))
+
+# Configure lan0 and lan1 interfaces to behave as bridged switch ports on lan
+sudo tee /etc/network/interfaces.d/lan0 << END
+auto lan0
+allow-hotplug lan0
+iface lan0 inet manual
+    pre-up   ifconfig $IFACE up
+    pre-down ifconfig $IFACE down
+END
+
+sudo tee /etc/network/interfaces.d/lan1 << END
+auto lan1
+allow-hotplug lan1
+iface lan1 inet manual
+    pre-up   ifconfig $IFACE up
+    pre-down ifconfig $IFACE down
+END
+
+sudo tee /etc/network/interfaces.d/lan << END
+auto lan
+iface lan inet static
+    bridge_ports lan0 lan1
+    bridge_stp off
+    bridge_fd 0
+    address 10.$subnet.0.1
+    netmask 255.255.0.0
+    network 10.$subnet.0.0
+    broadcast 10.$subnet.255.255
+END
+
+# Configure wan interface to behave as wireless mesh link
+sudo tee /etc/network/interfaces.d/wan << END
+auto wan
+allow-hotplug wan
+iface wan inet static
+    address 192.168.$subnet.1
+    netmask 255.255.255.0
+    network 192.168.$subnet.0
+    broadcast 192.168.$subnet.255
+END
+
+# Run multiple DHCP servers with dnsmasq
+sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.bak
+
+# Configure DHCP server on wan to assign 192.168.$subnet.0/24
+sudo tee /etc/dnsmasq.d/wan.conf << END
+dhcp-range=192.168.$subnet.2,192.168.$subnet.254,255.255.255.0,4h
+interface=wan
+except-interface=lo
+END
+
+# Configure DHCP server on lan to assign 10.$subnet.0.0/16
+sudo tee /etc/dnsmasq.d/lan.conf << END
+dhcp-range=10.$subnet.0.2,10.$subnet.255.254,255.255.0.0,4h
+interface=lan
+except-interface=lo
+END
+
+# Install babeld
+git clone git://github.com/jech/babeld.git
+cd babeld
+sudo make install
+
+# Configure babeld to redistribute 10.$subnet.0.0/16 routes
+sudo tee /etc/babeld.conf << END
+redistribute ip 10.$subnet.0.0/16 le 16 metric 128
+redistribute local deny
+END
+
+# Install babeld service
+sudo tee /etc/systemd/system/babeld.service << END
+[Unit]
+Description=Babeld Service
+Wants=network.target
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/babeld -G 999 -L /var/log/babeld.log -c /etc/babeld.conf wan lan
+ExecStop=/bin/kill -s QUIT $MAINPID
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target
+END
+
+sudo chmod 644 /etc/systemd/system/babeld.service
+sudo systemctl daemon-reload
+sudo systemctl enable babeld.service
+
+# Display instructions upon installation completion
+echo -e "Installation completed. This ESPRESSObin will now power off!"
+
+# Power off device
+sudo poweroff

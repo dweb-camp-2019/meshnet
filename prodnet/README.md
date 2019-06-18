@@ -42,7 +42,7 @@ It is the central point of each node where all other devices are connected to.
     saveenv
     ```
 
-1. Login as `root` / `1234` then run:
+1. Login as `root` / `1234` then run [espressobin/install](espressobin/install):
 
     ```
     # wget https://raw.githubusercontent.com/dweb-camp-2019/meshnet/master/prodnet/espressobin/install && chmod +x install && ./install
@@ -58,9 +58,9 @@ Directional radios that make a point-to-point link are put into bridge mode to s
 
 1. Connect to `192.168.88.1` and login to the web interface as `admin` without password, upload the `.npk` file and reboot the device, then verify RouterOS is upgraded to the latest
 
-1. SSH into the first device with `ssh admin@192.168.88.1`, then run `sxtsq/sxtsq-ap.rsc`
+1. SSH into the first device with `ssh admin@192.168.88.1`, then run [sxtsq/sxtsq-ap.rsc](sxtsq/sxtsq-ap.rsc)
 
-1. Upgrade and SSH into the second device, then run `sxtsq/sxtsq-client.rsc`
+1. Upgrade and SSH into the second device, then run [sxtsq/sxtsq-client.rsc](sxtsq/sxtsq-client.rsc)
 
 Some useful commands in the RouterOS terminal:
 

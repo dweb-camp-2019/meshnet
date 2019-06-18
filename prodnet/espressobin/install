@@ -2,7 +2,7 @@ set -e
 
 # Install networking tools
 sudo apt-get update || true
-sudo apt-get install -y dnsmasq
+sudo apt-get install -y bmon dnsmasq nmap oping socat traceroute
 
 # Disable wpa_supplicant
 sudo systemctl disable wpa_supplicant

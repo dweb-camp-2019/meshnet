@@ -24,13 +24,13 @@ This document is the proposal to build a local mesh network with the following g
 
 ## Budget
 
-| Category                        | Budget (USD) |
-|:--------------------------------|-------------:|
-| Meshnet equipment (prototype)   | 1500         |
-| Meshnet equipment (production)  | 5000         |
-| Misc. hardware (SBCs, cables)   | 1500         |
-| Internet connectivity           | ?            |
-| Contractor wages (if necessary) | 500          |
+| Category                        | Budget (USD) | Revised (USD) |
+|:--------------------------------|-------------:|--------------:|
+| Meshnet equipment (prototype)   | ~~1500~~     | 350           |
+| Meshnet equipment (production)  | ~~5000~~     | 3100          |
+| Misc. hardware (SBCs, cables)   | 1500         | 500           |
+| Internet connectivity           | ?            | ?             |
+| Contractor expenses             | ~~500~~      | 400           |
 
 ## Research Notes & Updates
 

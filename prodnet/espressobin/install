@@ -144,6 +144,10 @@ sudo make install
 
 # Configure babeld to redistribute lan subnet and wan local IP address
 sudo tee /etc/babeld.conf << END
+interface wan.1
+interface wan.2
+interface wan.3
+interface wan.4
 redistribute if lan metric 128
 redistribute local ip 10.$subnet.0.1/32 metric 128
 redistribute local deny
@@ -158,7 +162,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/babeld -G 999 -L /var/log/babeld.log -c /etc/babeld.conf wan.1 wan.2 wan.3 wan.4
+ExecStart=/usr/local/bin/babeld -G 999 -L /var/log/babeld.log -c /etc/babeld.conf
 ExecStop=/bin/kill -s QUIT $MAINPID
 Restart=on-failure
 RestartSec=10s

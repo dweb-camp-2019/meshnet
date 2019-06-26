@@ -51,8 +51,8 @@ auto lo
 iface lo inet loopback
 END
 
-# Randomize subnet segment between 4:255 for switch port DHCP
-subnet=$((RANDOM % 252 + 4))
+# Randomize nodeid segment between 4:255 for switch port DHCP
+nodeid=$((RANDOM % 252 + 4))
 
 # Configure lan0 and lan1 interfaces to behave as bridged switch ports on lan
 sudo tee /etc/network/interfaces.d/lan0 << END
@@ -77,10 +77,10 @@ iface lan inet static
     bridge_ports lan0 lan1
     bridge_stp off
     bridge_fd 0
-    address 10.$subnet.0.1
+    address 10.$nodeid.0.1
     netmask 255.255.0.0
-    network 10.$subnet.0.0
-    broadcast 10.$subnet.255.255
+    network 10.$nodeid.0.0
+    broadcast 10.$nodeid.255.255
 END
 
 # Configure wan interface to behave as point-to-point mesh link
@@ -88,10 +88,10 @@ sudo tee /etc/network/interfaces.d/wan << END
 auto wan
 allow-hotplug wan
 iface wan inet static
-    address 10.$subnet.0.1
+    address 10.$nodeid.0.1
     netmask 255.255.255.255
-    network 10.$subnet.0.1
-    broadcast 10.$subnet.0.1
+    network 10.$nodeid.0.1
+    broadcast 10.$nodeid.0.1
 END
 
 # Add second IP address to wan interface for management of MikroTik devices
@@ -99,7 +99,7 @@ sudo tee /etc/network/interfaces.d/wan:0 << END
 auto wan:0
 allow-hotplug wan:0
 iface wan:0 inet static
-    address 192.168.88.$subnet
+    address 192.168.88.$nodeid
     netmask 255.255.255.0
     network 192.168.88.0
     broadcast 192.168.88.255
@@ -111,16 +111,16 @@ sudo tee /etc/network/interfaces.d/wan.$vlan << END
 auto wan.$vlan
 allow-hotplug wan.$vlan
 iface wan.$vlan inet static
-    address 10.$subnet.0.1
+    address 10.$nodeid.0.1
     netmask 255.255.255.255
-    network 10.$subnet.0.1
-    broadcast 10.$subnet.0.1
+    network 10.$nodeid.0.1
+    broadcast 10.$nodeid.0.1
 END
 
 sudo tee /etc/network/interfaces.d/wan.$vlan:0 << END
 auto wan.$vlan:0
 iface wan.$vlan:0 inet static
-    address 192.168.88.$subnet
+    address 192.168.88.$nodeid
     netmask 255.255.255.0
     network 192.168.88.0
     broadcast 192.168.88.255
@@ -130,9 +130,9 @@ done
 # Run multiple DHCP servers with dnsmasq (if needed)
 sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.bak
 
-# Configure DHCP server on lan to assign 10.$subnet.0.0/16
+# Configure DHCP server on lan to assign 10.$nodeid.0.0/16
 sudo tee /etc/dnsmasq.d/lan.conf << END
-dhcp-range=10.$subnet.0.2,10.$subnet.255.254,255.255.0.0,4h
+dhcp-range=10.$nodeid.0.2,10.$nodeid.255.254,255.255.0.0,4h
 interface=lan
 except-interface=lo
 END
@@ -142,14 +142,14 @@ git clone git://github.com/jech/babeld.git
 cd babeld
 sudo make install
 
-# Configure babeld to redistribute lan subnet and wan local IP address
+# Configure babeld to redistribute lan nodeid and wan local IP address
 sudo tee /etc/babeld.conf << END
 interface wan.1
 interface wan.2
 interface wan.3
 interface wan.4
 redistribute if lan metric 128
-redistribute local ip 10.$subnet.0.1/32 metric 128
+redistribute local ip 10.$nodeid.0.1/32 metric 128
 redistribute local deny
 END
 

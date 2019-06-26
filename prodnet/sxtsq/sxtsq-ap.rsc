@@ -63,3 +63,7 @@ set api disabled=yes
 set api-ssl disabled=yes
 set ftp disabled=yes
 set telnet disabled=yes
+
+# Change management IP address of ether1 to avoid conflict with Client
+/ip address
+set [ find interface=ether1 ] address=192.168.88.2/24

@@ -51,8 +51,8 @@ auto lo
 iface lo inet loopback
 END
 
-# Randomize subnet segment between 3:255 for switch port DHCP
-subnet=$((RANDOM % 253 + 3))
+# Randomize subnet segment between 4:255 for switch port DHCP
+subnet=$((RANDOM % 252 + 4))
 
 # Configure lan0 and lan1 interfaces to behave as bridged switch ports on lan
 sudo tee /etc/network/interfaces.d/lan0 << END

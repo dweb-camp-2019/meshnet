@@ -68,6 +68,6 @@ set api-ssl disabled=yes
 set ftp disabled=yes
 set telnet disabled=yes
 
-# Change IP address of ether1 to avoid conflict with AP
+# Change management IP address of ether1 to avoid conflict with AP
 /ip address
-set [ find interface=ether1 ] address=192.168.88.2/24
+set [ find interface=ether1 ] address=192.168.88.3/24

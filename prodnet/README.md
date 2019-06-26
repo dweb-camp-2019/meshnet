@@ -48,6 +48,45 @@ It is the central point of each node where all other devices are connected to.
     # wget https://raw.githubusercontent.com/dweb-camp-2019/meshnet/master/prodnet/espressobin/install && chmod +x install && ./install
     ```
 
+1. If this is an _Edge Node_, one that has only one single _Point-to-point Mesh Radio_, change these lines in **/etc/babeld.conf** to just a single line of `interface wan` to disable VLAN interfaces:
+
+    ```
+    interface wan.1
+    interface wan.2
+    interface wan.3
+    interface wan.4
+   ```
+
+1. If this is an _Internet Gateway_, a node that bridges the local network to the Internet, change **/etc/network/interfaces.d/wan.4** to:
+
+    ```
+    auto wan.4
+    allow-hotplug wan.4
+        iface wan.4 inet dhcp
+    ```
+
+    or
+
+    ```
+    auto wan.4
+    allow-hotplug wan.4
+    iface wan.4 inet static
+        address ADDRESS
+        netmask NETMASK
+        network NETWORK
+        broadcast BROADCAST
+        gateway GATEWAY
+    ```
+
+    reboot, then run these commands:
+
+    ```
+    sudo ip addr del 10.X.0.1/32 dev wan.4
+    sudo ip route del default via ADDRESS dev wan.4
+    sudo ip route add 0.0.0.0/0 via ADDRESS dev wan.4 proto static
+    sudo iptables -t nat -A POSTROUTING -o wan.4 -j MASQUERADE
+    ```
+
 ## Point-to-Point Mesh Radios
 
 Directional radios that make a point-to-point link are put into bridge mode to serve as a wireless replacement of an ethernet cable. These high gain radios need to be aligned carefully to be pointed at one another within about 20 degrees to get optimal speeds.
@@ -71,17 +110,25 @@ Some useful commands in the RouterOS terminal:
 
 ### MikroTik Wireless Wire (60 GHz)
 
-TODO
+These are pre-configured devices that operate at 60 GHz to form a gigabit wireless link at distances ~100 m. They between 700-900 Mbps even when alignment is a little off and have LEDs to indicate link quality. The pair has management IP addresses of `192.168.88.2` and `192.168.88.3`, when can be accessed via the ESPRESSObin via SSH as `admin` user, but this usually isn't necessary as they should "just work" as if it is an actual ethernet cable.
+
+### Ethernet Cable
+
+Yes. If distances allow, you can just use an ethernet cable to link two nodes. Remember the maximum distance for ethernet cables to work reliably is 100 m. I have run into trouble at smaller distances when also doing PoE.
 
 ## Access Point Radios
 
-We use two models of radios depending on whether we need wireless coverage all around the antenna (omnidirectional) or an area within a 120 degree cone (sector).
+We use three models of radios depending on whether we need wireless coverage all around the antenna (omnidirectional) or an area within a 120 degree cone (sector).
 
-### MikroTik OmniTIK 5 PoE ac (Omnidirectional)
+### MikroTik OmniTIK 5 PoE ac (Outdoor Omnidirectional)
 
 TODO
 
-### MikroTik mANTBox 15s (Sector)
+### MikroTik mANTBox 15s (Outdoor Sector)
+
+TODO
+
+### MikroTik cAP ac (Indoor Omnidirectional)
 
 TODO
 

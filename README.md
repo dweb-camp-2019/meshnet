@@ -39,3 +39,4 @@ This document is the proposal to build a local mesh network with the following g
 - [Babel + WireGuard Mesh](research/babel-wireguard-mesh.md)
 - [Meshnet Site Survey @ The Farm](research/site-survey/README.md)
 - [Testnet for DWeb Camp Applications](testnet/README.md)
+- [Prodnet for DWeb Camp Applications](prodnet/README.md)

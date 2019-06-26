@@ -17,9 +17,9 @@ It is the central point of each node where all other devices are connected to.
 
 ### ESPRESSObin SBUD102 V5
 
-1. Flash SD card with [Armbian for ESPRESSObin](https://www.armbian.com/espressobin/)
+1. Flash SD card with [Armbian for ESPRESSObin](https://www.armbian.com/espressobin/), then insert it into the ESPRESSObin with Internet access through one of its ethernet ports, then power on (never connect two ESPRESSObin devices to the same network until after you run this install script, the ethernet interface on all devices have the same MAC address and it will packet storm your network, nobody wants that)
 
-1. [Connect via serial interface](http://wiki.espressobin.net/tiki-index.php?page=Serial+connection+-+Linux) to the ESPRESSObin's micro-USB port and run something like `minicom` on your computer to update the boot script:
+1. [Connect via serial interface](http://wiki.espressobin.net/tiki-index.php?page=Serial+connection+-+Linux) to the ESPRESSObin's micro-USB port and run something like `minicom` on your computer to update the boot script (you probably need to paste a few lines at a time and make sure there are no spaces before and after each line):
 
     ```
     env default -a
@@ -41,6 +41,8 @@ It is the central point of each node where all other devices are connected to.
     setenv boot_a_script 'ext4load ${boot_interface} ${devnum}:1 ${scriptaddr} ${prefix}boot.scr;source ${scriptaddr};'
     saveenv
     ```
+    
+    then run `boot` to boot into the SD card
 
 1. Login as `root` / `1234` then run [espressobin/install](espressobin/install):
 
@@ -65,7 +67,7 @@ It is the central point of each node where all other devices are connected to.
         iface wan.4 inet dhcp
     ```
 
-    or
+    or:
 
     ```
     auto wan.4
@@ -78,13 +80,14 @@ It is the central point of each node where all other devices are connected to.
         gateway GATEWAY
     ```
 
-    reboot, then run these commands:
+    reboot, then run these commands where `ADDRESS` is your Internet router's address which you can find by running `ip route | grep default`:
 
     ```
-    sudo ip addr del 10.X.0.1/32 dev wan.4
     sudo ip route del default via ADDRESS dev wan.4
     sudo ip route add 0.0.0.0/0 via ADDRESS dev wan.4 proto static
     sudo iptables -t nat -A POSTROUTING -o wan.4 -j MASQUERADE
+    echo 'redistribute ip 0.0.0.0/0 metric 128' | sudo tee --append /etc/babeld.conf
+    systemctl restart babeld
     ```
 
 ## Point-to-Point Mesh Radios
@@ -97,16 +100,12 @@ Directional radios that make a point-to-point link are put into bridge mode to s
 
 1. Connect to `192.168.88.1` and login to the web interface as `admin` without password, upload the `.npk` file and reboot the device, then verify RouterOS is upgraded to the latest
 
-1. SSH into the first device with `ssh admin@192.168.88.1`, then run [sxtsq/sxtsq-ap.rsc](sxtsq/sxtsq-ap.rsc)
+1. Ensure the device has fresh configurations, run `/system reset-configuration` as needed
 
-1. Upgrade and SSH into the second device, then run [sxtsq/sxtsq-client.rsc](sxtsq/sxtsq-client.rsc)
+1. SSH into the first device with `ssh admin@192.168.88.1`, then run [sxtsq/sxtsq-ap.rsc](sxtsq/sxtsq-ap.rsc), then reboot the device with `/system reboot` and it will acquire the new IP address `192.168.88.2`
 
-Some useful commands in the RouterOS terminal:
-
-```
-/system reset-configuration
-/system reboot
-```
+1. Upgrade and SSH into the second device, then run [sxtsq/sxtsq-client.rsc](sxtsq/sxtsq-client.rsc), then reboot the device with `/system reboot` and it will acquire the n
+ew IP address `192.168.88.3`
 
 ### MikroTik Wireless Wire (60 GHz)
 

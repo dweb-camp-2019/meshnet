@@ -22,16 +22,6 @@ This document is the proposal to build a local mesh network with the following g
 - Carry traffic to Internet gateway for client devices to access the Internet with limited bandwidth and reliability
 - Document setup and learnings for future events or other groups
 
-## Budget
-
-| Category                        | Budget (USD) | Revised (USD) |
-|:--------------------------------|-------------:|--------------:|
-| Meshnet equipment (prototype)   | ~~1500~~     | 350           |
-| Meshnet equipment (production)  | ~~5000~~     | 3100          |
-| Misc. hardware (SBCs, cables)   | 1500         | 500           |
-| Internet connectivity           | ?            | ?             |
-| Contractor expenses             | ~~500~~      | 400           |
-
 ## Research Notes & Updates
 
 - [Initial Plan for Meshnet](research/initial-plan/README.md)
@@ -40,3 +30,4 @@ This document is the proposal to build a local mesh network with the following g
 - [Meshnet Site Survey @ The Farm](research/site-survey/README.md)
 - [Testnet for DWeb Camp Applications](testnet/README.md)
 - [Prodnet for DWeb Camp Applications](prodnet/README.md)
+- [Mesh Network Equipment](HARDWARE.md)

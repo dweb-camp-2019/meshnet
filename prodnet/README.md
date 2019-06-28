@@ -17,6 +17,20 @@ It is the central point of each node where all other devices are connected to.
 
 ### ESPRESSObin SBUD102 V5
 
+We will configure the ESPRESSObin board so `wan` is used to connect point-to-point mesh radios, and `lan0` and `lan1` are bridged as `lan` for the local wired and wireless network:
+
+```
+    +-ESPRESSOBIN---------+P+-+
+    |                      O  |
+    |                      W  |
+    |                      E  |
+    |      L     L     W   R  |
+    |      A     A     A      |
+    |    +-N-+ +-N-+ +-N-+    |
+    +----| 1 |-| 0 |-|   |----+
+         +---+ +---+ +---+
+```
+
 1. Flash SD card with [Armbian for ESPRESSObin](https://www.armbian.com/espressobin/), then insert it into the ESPRESSObin with Internet access through one of its ethernet ports, then power on (never connect two ESPRESSObin devices to the same network until after you run this install script, the ethernet interface on all devices have the same MAC address and it will packet storm your network, nobody wants that)
 
 1. [Connect via serial interface](http://wiki.espressobin.net/tiki-index.php?page=Serial+connection+-+Linux) to the ESPRESSObin's micro-USB port and run something like `minicom` on your computer to update the boot script (you probably need to paste a few lines at a time and make sure there are no spaces before and after each line):
@@ -89,6 +103,22 @@ It is the central point of each node where all other devices are connected to.
     echo 'redistribute ip 0.0.0.0/0 metric 128' | sudo tee --append /etc/babeld.conf
     systemctl restart babeld
     ```
+
+### NETGEAR GS305E Gigabit Managed Switch
+
+We configured the ESPRESSObin to have only one `wan` port. Babel needs to distinguish different network interfaces in order to compute route metrics between the different links and make routing decisions accordingly. So we will make virtual interfaces by tagged each mesh radio with a different VLAN ID, essentially multiplexing differently tagged packets into `wan` which then seperates them out on `wan.1` `wan.2` `wan.3` and `wan.4` on the ESPRESSObin, and what Babel sees are seperate network interfaces as if the ESPRESSObin has 4 `wan` ports.
+
+1. Connect to the GS305E default IP and login to the admin interface
+
+1. Enable `Basic 802.1Q VLAN Status` then configure the following VLAN ID settings:
+
+    | port    | 1 | 2 | 3 | 4 | 5 |
+    |:--------|:-:|:-:|:-:|:-:|:-:|
+    | VLAN ID | 1 | 2 | 3 | 4 |all|
+
+1. Connect `port 5` to the ESPRESSObin `wan` port, and use the VLAN tagged ports for point-to-point radios or ethernet cables that are connect mesh nodes
+
+1. If this is an Internet Gatway node, connect your Internet backhaul to `port 4` (since we have `wan.4` configured to be the Internet route for Internet Gateway ESPRESSObins)
 
 ## Point-to-Point Mesh Radios
 

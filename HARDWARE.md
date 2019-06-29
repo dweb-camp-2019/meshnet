@@ -52,7 +52,7 @@ The following is a listing of our equipment inventory.
 | Meshnet equipment (prototype)   | ~~1500~~              |  500                 |
 | Meshnet equipment (production)  | ~~5000~~              | 3000                 |
 | Misc. hardware (SBCs, cables)   | ~~1500~~              |  500                 |
-| Contractor expenses             |    500                |  500                 |
+| Installation expenses           |    500                |  500                 |
 | **Total**                       | ~~8500~~              | 4500                 |
 
 ## Orders

@@ -9,7 +9,7 @@ After running the installation script and when you power the Raspberry Pi back o
 
 You will need two Raspberry Pi 3B or 3B+ with SD cards, and probably ethernet cables to connect devices (e.g. laptops) to the Raspberry Pi local network.
 
-1. Flash the SD card with [Raspbian Stretch Lite](https://www.raspberrypi.org/downloads/raspbian/).
+1. Flash the SD card with [Raspbian Buster Lite](https://www.raspberrypi.org/downloads/raspbian/).
 
 1. Create an empty file named **ssh** to enable SSH when the Pi boots:
 
@@ -40,7 +40,7 @@ The two Raspberry Pi themselves use the on-board WiFi in ad-hoc mode to wireless
     +------------------+        +-------------------------------+         +-------------------------------+        +------------------+
     | A: Laptop client |        | B: Raspberry Pi babel router  |         | C: Raspberry Pi babel router  |        | D: Laptop client |
     | 10.131.225.234   +--------+ eth0:  10.131.0.1 assigns /16 + - - - - + eth0:  10.201.0.1 assigns /16 +--------+ 10.201.30.107    |
-    | assigned by B    |  eth0  | mesh0: 192.168.133.131 in /24 |  mesh0  | mesh0: 192.168.133.201 in /24 |  eth0  | assigned by C    |
+    | assigned by B    |  eth0  | wlan0: 192.168.133.131 in /24 |  wlan0  | wlan0: 192.168.133.201 in /24 |  eth0  | assigned by C    |
     +------------------+        +-------------------------------+         +-------------------------------+        +------------------+
 ```
 
@@ -54,7 +54,7 @@ In this example:
 
 This means even though clients `A` and `D` themselves do not run Babel, all the devices can ping each other on these IP addresses.
 If you are running an application on a computer, server, single-board computer, phone, or any other device, this is the IP address that other people on the local mesh network can reach you at.
-In this Raspberry Pi model of the network, you can see that `A` and `D` can send and receive from one another through the chain at about 33 Mbps, limited by the wireless `mesh0` link:
+In this Raspberry Pi model of the network, you can see that `A` and `D` can send and receive from one another through the chain at about 33 Mbps, limited by the wireless `wlan0` link:
 
 ```
 $ iperf3 -c 10.201.30.107                                                                                                                                                                                                                                                                                                                             ⏎

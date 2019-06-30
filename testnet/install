@@ -39,7 +39,7 @@ iface eth0 inet static
     broadcast 10.$subnet.255.255
 END
 
-# Configure mesh0 (wlan0) interface to behave as wireless mesh link
+# Configure wlan0 interface to behave as wireless mesh link
 sudo tee /etc/network/interfaces.d/wlan0 << END
 auto wlan0
 iface wlan0 inet manual
@@ -50,11 +50,10 @@ sudo tee /usr/bin/mesh << END
 
 sudo iw reg set US
 sudo ifconfig wlan0 down
-sudo ip link set wlan0 name mesh0
-sudo iw mesh0 set type ibss
-sudo ifconfig mesh0 up
-sudo ifconfig mesh0 192.168.133.$subnet/24
-sudo iw dev mesh0 ibss join dwebcamp 2412
+sudo iw wlan0 set type ibss
+sudo ifconfig wlan0 up
+sudo ifconfig wlan0 192.168.133.$subnet/24
+sudo iw dev wlan0 ibss join dwebcamp 2412
 END
 
 sudo tee /etc/systemd/system/mesh.service << END
@@ -98,6 +97,7 @@ sudo make install
 
 # Configure babeld to redistribute 10.$subnet.0.0/16 routes
 sudo tee /etc/babeld.conf << END
+interface wlan0
 redistribute ip 10.$subnet.0.0/16 le 16 metric 128
 redistribute local deny
 END
@@ -111,7 +111,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/babeld -G 999 -L /var/log/babeld.log -c /etc/babeld.conf eth0 mesh0
+ExecStart=/usr/local/bin/babeld -G 999 -L /var/log/babeld.log -c /etc/babeld.conf
 ExecStop=/bin/kill -s QUIT $MAINPID
 Restart=on-failure
 RestartSec=10s

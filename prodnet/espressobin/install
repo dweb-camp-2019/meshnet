@@ -132,7 +132,7 @@ sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.bak
 
 # Configure DHCP server on lan to assign 10.$nodeid.0.0/16
 sudo tee /etc/dnsmasq.d/lan.conf << END
-dhcp-range=10.$nodeid.0.2,10.$nodeid.255.254,255.255.0.0,4h
+dhcp-range=10.$nodeid.0.2,10.$nodeid.255.254,255.255.0.0,10.$nodeid.255.255,4h
 interface=lan
 except-interface=lo
 END

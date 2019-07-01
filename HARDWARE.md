@@ -28,17 +28,17 @@ The following is a listing of our equipment inventory.
 | [MikroTik QMP mount](https://mikrotik.com/product/QMP) | Streakwave | 6.00 | 2 | 2 |
 | Ubiquiti UBAM mount | Streakwave | 8.00 | 2 | 2 |
 | Cat5e connectors (100 pcs) | Streakwave | 29.96 | 1 | 1 |
-| [ESPRESSObin V5 64 Bit](https://www.amazon.com/ESPRESSObin-Single-Computer-Network-Switch/dp/B06Y3V2FBK/) | Amazon | 49.00 | 10 (2) | 6 |
+| [ESPRESSObin V5 64 Bit](https://www.amazon.com/ESPRESSObin-Single-Computer-Network-Switch/dp/B06Y3V2FBK/) | Amazon | 49.00 | 10 (2) | 7 |
 | [ESPRESSObin V7 64 Bit](https://www.amazon.com/ESPRESSObin-Single-Computer-Network-Switch/dp/B07KTMBCS1/) | Amazon | 79.00 | 2 (1) | 1 |
 [ESPRESSOBIN+ power supply](https://www.amazon.com/ESPRESSObin-Single-Computer-Network-Switch/dp/B07KTC9JVB/) | Amazon | 10.00 | 10 (2) | 6 |
-| [NETGEAR 5-Port Gigabit Managed Switch](https://www.amazon.com/dp/B07PJ7XZ7X/) | Amazon | 36.99 | 5 | 1 |
-| [Outdoor Junction Box](https://www.amazon.com/LeMotech-Dustproof-Waterproof-Electrical-200mmx155mmx80mm/dp/B075DHT7X2/) | Amazon | 29.99 | 6 | 1 |
+| [NETGEAR 5-Port Gigabit Managed Switch](https://www.amazon.com/dp/B07PJ7XZ7X/) | Amazon | 36.99 | 5 | 5 |
+| [Outdoor Junction Box](https://www.amazon.com/LeMotech-Dustproof-Waterproof-Electrical-200mmx155mmx80mm/dp/B075DHT7X2/) | Amazon | 29.99 | 6 | 6 |
 | [UCTRONICS PoE Splitter (Gigabit 802.3af Micro-USB 5V)](https://www.amazon.com/UCTRONICS-PoE-Splitter-Gigabit-Raspberry/dp/B07CNKX14C/) | Amazon | 15.00 | 15 | 1 |
 | PoE Splitter (10/100 802.3af Micro-USB 5V) | n/a | n/a | 2 (2) | 2 |
 | PoE Splitter (10/100 802.3af Barrel 12V) | n/a | n/a | 2 (2) | 2 |
 | SRW224P (10/100 24-port PoE switch) | n/a | n/a | 1 (1) | 1 |
 | SRW208P (10/100 8-port PoE switch) | n/a | n/a | 2 (2) | 2 |
-| Raspberry Pi 3B+ | n/a | n/a | 5 (5) | 5 |
+| Raspberry Pi 3B+ | n/a | n/a | 4 (4) | 4 |
 | Ethernet cable spool (1000 ft) | n/a | n/a | 2 (2) | 2 |
 | Ethernet cable crimper | n/a | n/a | 3 (3) | 3 |
 | Ethernet cable tester | n/a | n/a | 1 (1) | 1 |

@@ -71,7 +71,8 @@ We will configure the ESPRESSObin board so `wan` is used to connect point-to-poi
     then run:
 
     ```
-    # wget https://raw.githubusercontent.com/dweb-camp-2019/meshnet/master/prodnet/espressobin/install && chmod +x install
+    # wget https://raw.githubusercontent.com/dweb-camp-2019/meshnet/master/prodnet/espressobin/install
+    # chmod +x install
     # ./install TYPE
     ```
 

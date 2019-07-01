@@ -58,53 +58,26 @@ We will configure the ESPRESSObin board so `wan` is used to connect point-to-poi
     
     then run `boot` to boot into the SD card
 
-1. Login as `root` / `1234` then run [espressobin/install](espressobin/install):
+1. Login as `root` / `1234` then run [espressobin/install](espressobin/install) and go through the first-run menus.
+
+1. Figure out what type of node this will be:
+
+    | Type    | Description                                                                        |
+    |:--------|:-----------------------------------------------------------------------------------|
+    |`edge`   | Node with only one _Point-to-point Mesh Radio_                                     |
+    |`relay`  | Node with multiple _Point-to-point Mesh Radios_ and relays traffic for other nodes |
+    |`gateway`| Node that routes the local network to the Internet                                 |
+ 
+    then run:
 
     ```
-    # wget https://raw.githubusercontent.com/dweb-camp-2019/meshnet/master/prodnet/espressobin/install && chmod +x install && ./install
-    ```
-
-1. If this is an _Edge Node_, one that has only one single _Point-to-point Mesh Radio_, change these lines in **/etc/babeld.conf** to just a single line of `interface wan` to disable VLAN interfaces:
-
-    ```
-    interface wan.1
-    interface wan.2
-    interface wan.3
-    interface wan.4
-   ```
-
-1. If this is an _Internet Gateway_, a node that bridges the local network to the Internet, change **/etc/network/interfaces.d/wan.4** to:
-
-    ```
-    auto wan.4
-    allow-hotplug wan.4
-        iface wan.4 inet dhcp
-    ```
-
-    or:
-
-    ```
-    auto wan.4
-    allow-hotplug wan.4
-    iface wan.4 inet static
-        address ADDRESS
-        netmask NETMASK
-        network NETWORK
-        broadcast BROADCAST
-        gateway GATEWAY
-    ```
-
-    reboot, then run these commands where `ADDRESS` is your Internet router's address which you can find by running `ip route | grep default`:
-
-    ```
-    sudo ip route del default via ADDRESS dev wan.4
-    sudo ip route add 0.0.0.0/0 via ADDRESS dev wan.4 proto static
-    sudo iptables -t nat -A POSTROUTING -o wan.4 -j MASQUERADE
-    echo 'redistribute ip 0.0.0.0/0 metric 128' | sudo tee --append /etc/babeld.conf
-    systemctl restart babeld
+    # wget https://raw.githubusercontent.com/dweb-camp-2019/meshnet/master/prodnet/espressobin/install && chmod +x install
+    # ./install TYPE
     ```
 
 ### NETGEAR GS305E Gigabit Managed Switch
+
+This device is only necessary for `relay` and `gateway` nodes.
 
 We configured the ESPRESSObin to have only one `wan` port. Babel needs to distinguish different network interfaces in order to compute route metrics between the different links and make routing decisions accordingly. So we will make virtual interfaces by tagged each mesh radio with a different VLAN ID, essentially multiplexing differently tagged packets into `wan` which then seperates them out on `wan.1` `wan.2` `wan.3` and `wan.4` on the ESPRESSObin, and what Babel sees are seperate network interfaces as if the ESPRESSObin has 4 `wan` ports.
 

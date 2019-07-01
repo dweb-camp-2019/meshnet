@@ -2,6 +2,19 @@
 
 set -e
 
+NODE_TYPE=$1
+
+# Randomize nodeid segment between 10:255
+nodeid=$((RANDOM % 246 + 10))
+
+# Identify node type
+if [[ "$NODE_TYPE" == "edge" ]] || [[ "$NODE_TYPE" == "relay" ]] || [[ "$NODE_TYPE" == "gateway" ]]; then
+  echo -e "Configuring 'node-$nodeid' as '$NODE_TYPE' node..."
+else
+  echo -e "Please select a node type: edge | relay | gateway"
+  exit 1
+fi
+
 # Install networking tools
 sudo apt-get update || true
 sudo apt-get install -y avahi-daemon bmon dnsmasq iperf3 libnss-mdns nmap oping socat tcpdump traceroute vlan
@@ -50,9 +63,6 @@ sudo tee /etc/network/interfaces.d/lo << END
 auto lo
 iface lo inet loopback
 END
-
-# Randomize nodeid segment between 4:255 for switch port DHCP
-nodeid=$((RANDOM % 252 + 4))
 
 # Configure lan0 and lan1 interfaces to behave as bridged switch ports on lan
 sudo tee /etc/network/interfaces.d/lan0 << END
@@ -127,6 +137,46 @@ iface wan.$vlan:0 inet static
 END
 done
 
+# Configure wan.4 interface and routes for gateway node
+if [[ "$NODE_TYPE" == 'gateway' ]]; then
+
+sudo tee /etc/network/interfaces.d/wan.4 << END
+auto wan.4
+allow-hotplug wan.4
+    iface wan.4 inet dhcp
+END
+
+sudo tee /usr/bin/gateway << END
+#!/bin/bash
+
+gateway=\$(ip route | grep default | awk '{print \$3}')
+
+sudo ip route del default via \$gateway dev wan.4
+sudo ip route add 0.0.0.0/0 via \$gateway dev wan.4 proto static
+sudo iptables -t nat -A POSTROUTING -o wan.4 -j MASQUERADE
+END
+
+sudo tee /etc/systemd/system/gateway.service << END
+[Unit]
+Description=Gateway Service
+Wants=network.target
+After=network.target
+[Service]
+Type=idle
+ExecStart=/usr/bin/gateway
+Restart=on-failure
+RestartSec=10s
+[Install]
+WantedBy=multi-user.target
+END
+
+sudo chmod 755 /usr/bin/gateway
+sudo chmod 644 /etc/systemd/system/gateway.service
+sudo systemctl daemon-reload
+sudo systemctl enable gateway.service
+
+fi
+
 # Run multiple DHCP servers with dnsmasq (if needed)
 sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.bak
 
@@ -143,6 +193,17 @@ cd babeld
 sudo make install
 
 # Configure babeld to redistribute lan nodeid and wan local IP address
+if [[ "$NODE_TYPE" == 'edge' ]]; then
+
+sudo tee /etc/babeld.conf << END
+interface wan
+redistribute if lan metric 128
+redistribute local ip 10.$nodeid.0.1/32 metric 128
+redistribute local deny
+END
+
+elif [[ "$NODE_TYPE" == 'relay' ]]; then
+
 sudo tee /etc/babeld.conf << END
 interface wan.1
 interface wan.2
@@ -152,6 +213,21 @@ redistribute if lan metric 128
 redistribute local ip 10.$nodeid.0.1/32 metric 128
 redistribute local deny
 END
+
+elif [[ "$NODE_TYPE" == 'gateway' ]]; then
+
+sudo tee /etc/babeld.conf << END
+interface wan.1
+interface wan.2
+interface wan.3
+interface wan.4
+redistribute if lan metric 128
+redistribute local ip 10.$nodeid.0.1/32 metric 128
+redistribute local deny
+redistribute ip 0.0.0.0/0 metric 128
+END
+
+fi
 
 # Install babeld service
 sudo tee /etc/systemd/system/babeld.service << END
@@ -183,7 +259,7 @@ sudo sed -i 's/^hosts.*/hosts:          files mdns dns/' /etc/nsswitch.conf
 echo "node-$nodeid" | sudo tee /etc/hostname
 
 # Display instructions upon installation completion
-echo -e "Installation completed. This ESPRESSObin will now power off!"
+echo -e "Installation of 'node-$nodeid' completed. This ESPRESSObin will now power off!"
 
 # Power off device
 sudo poweroff

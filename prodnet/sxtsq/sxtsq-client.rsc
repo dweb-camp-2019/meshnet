@@ -23,7 +23,7 @@ frequency=auto \
 wireless-protocol=any \
 mode=station-bridge \
 tx-power-mode=all-rates-fixed \
-tx-power=10 \
+tx-power=17 \
 ssid=sxt-ptp-ap \
 security-profile=default
 /interface wireless connect-list

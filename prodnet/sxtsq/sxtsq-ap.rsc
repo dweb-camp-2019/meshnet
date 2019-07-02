@@ -23,7 +23,7 @@ frequency=auto \
 wireless-protocol=802.11 \
 mode=bridge \
 tx-power-mode=all-rates-fixed \
-tx-power=10 \
+tx-power=17 \
 ssid=sxt-ptp-ap \
 security-profile=default
 

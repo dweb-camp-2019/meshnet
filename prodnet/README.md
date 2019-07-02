@@ -121,7 +121,14 @@ Yes. If distances allow, you can just use an ethernet cable to link two nodes. R
 
 ## Access Point Radios
 
-We use three models of radios depending on whether we need wireless coverage all around the antenna (omnidirectional) or an area within a 120 degree cone (sector).
+We use three models of radios depending on whether we need wireless coverage all around the antenna (omnidirectional) or an area within a 120 degree cone (sector). We will configure each radio to provide a 5 GHz-only network with:
+
+```
+SSID:     dwebcamp
+Password: dwebcamp
+```
+
+There will be two users: `admin` with `ADMIN_PASSWORD`, and `me` with no password and read-only access to the access point radios.
 
 ### MikroTik OmniTIK 5 PoE ac (Outdoor Omnidirectional)
 
@@ -129,7 +136,11 @@ TODO
 
 ### MikroTik mANTBox 15s (Outdoor Sector)
 
-TODO
+1. Connect device to a router with a DHCP server and scan for the IP address of the mANTBox 15s
+
+1. Ensure the device has fresh configurations, run `/system reset-configuration` as needed
+
+1. SSH into the device with `ssh admin@IP_ADDRESS`, then run [mant15s/mant15s-ap.rsc](mant15s/mant15s-ap.rsc) after replacing the `ADMIN_PASSWORD`
 
 ### MikroTik cAP ac (Indoor Omnidirectional)
 

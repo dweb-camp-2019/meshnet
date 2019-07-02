@@ -104,11 +104,15 @@ Directional radios that make a point-to-point link are put into bridge mode to s
 
 1. Connect to `192.168.88.1` and login to the web interface as `admin` without password, upload the `.npk` file and reboot the device, then verify RouterOS is upgraded to the latest
 
-1. Ensure the device has fresh configurations, run `/system reset-configuration` as needed
+1. SSH into the device with `ssh admin@192.168.88.1`
 
-1. SSH into the first device with `ssh admin@192.168.88.1`, then run [sxtsq/sxtsq-ap.rsc](sxtsq/sxtsq-ap.rsc), then reboot the device with `/system reboot` and it will acquire the new IP address `192.168.88.2`
+1. Ensure the device has fresh configurations, run `/system reset-configuration` if needed
 
-1. Upgrade and SSH into the second device, then run [sxtsq/sxtsq-client.rsc](sxtsq/sxtsq-client.rsc), then reboot the device with `/system reboot` and it will acquire the new IP address `192.168.88.3`
+1. Run [sxtsq/sxtsq-ap.rsc](sxtsq/sxtsq-ap.rsc)
+
+1. Reboot the device with `/system reboot` and it will acquire the new IP address `192.168.88.2`
+
+1. Repeat the above steps for the second (client) device, then run [sxtsq/sxtsq-client.rsc](sxtsq/sxtsq-client.rsc), and it will acquire the new IP address `192.168.88.3` after reboot
 
 ### MikroTik Wireless Wire (60 GHz)
 
@@ -135,11 +139,13 @@ TODO
 
 ### MikroTik mANTBox 15s (Outdoor Sector)
 
-1. Connect device to a router with a DHCP server and scan for the IP address of the mANTBox 15s
+1. Connect device to a router with a DHCP server and scan for the IP address of the mANTBox 15s with a tool like `nmap`
 
-1. Ensure the device has fresh configurations, run `/system reset-configuration` as needed
+1. SSH into the device with `ssh admin@IP_ADDRESS`
 
-1. SSH into the device with `ssh admin@IP_ADDRESS`, then run [mant15s/mant15s-ap.rsc](mant15s/mant15s-ap.rsc) after replacing the `ADMIN_PASSWORD`
+1. Ensure the device has fresh configurations, run `/system reset-configuration` if needed
+
+1. Run [mant15s/mant15s-ap.rsc](mant15s/mant15s-ap.rsc) after replacing the `ADMIN_PASSWORD`
 
 ### MikroTik cAP ac (Indoor Omnidirectional)
 

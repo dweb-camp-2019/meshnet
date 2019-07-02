@@ -108,8 +108,7 @@ Directional radios that make a point-to-point link are put into bridge mode to s
 
 1. SSH into the first device with `ssh admin@192.168.88.1`, then run [sxtsq/sxtsq-ap.rsc](sxtsq/sxtsq-ap.rsc), then reboot the device with `/system reboot` and it will acquire the new IP address `192.168.88.2`
 
-1. Upgrade and SSH into the second device, then run [sxtsq/sxtsq-client.rsc](sxtsq/sxtsq-client.rsc), then reboot the device with `/system reboot` and it will acquire the n
-ew IP address `192.168.88.3`
+1. Upgrade and SSH into the second device, then run [sxtsq/sxtsq-client.rsc](sxtsq/sxtsq-client.rsc), then reboot the device with `/system reboot` and it will acquire the new IP address `192.168.88.3`
 
 ### MikroTik Wireless Wire (60 GHz)
 
@@ -128,7 +127,7 @@ SSID:     dwebcamp
 Password: dwebcamp
 ```
 
-There will be two users: `admin` with `ADMIN_PASSWORD`, and `me` with no password and read-only access to the access point radios.
+There will be two users: `admin` with `ADMIN_PASSWORD`, and `me` with no password and read-only access to the access point web UI.
 
 ### MikroTik OmniTIK 5 PoE ac (Outdoor Omnidirectional)
 

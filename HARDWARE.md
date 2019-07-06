@@ -19,18 +19,18 @@ The following is a listing of our equipment inventory.
 
 | Item | Vendor | Price (USD) | Total Quantity (# of them borrowed) | On-hand Quantity |
 |:-----|-------:|------------:|------------------------------------:|-----------------:|
-| [MikroTik Wireless Wire](https://mikrotik.com/product/wireless_wire) (pair) | Streakwave | 170.00 | 5 | 2 |
-| [MikroTik SXTsq 5 ac](https://mikrotik.com/product/sxtsq_5_ac) | Streakwave | 53.00 | 8 | 6 |
+| [MikroTik Wireless Wire](https://mikrotik.com/product/wireless_wire) (pair) | Streakwave | 170.00 | 5 | 5 |
+| [MikroTik SXTsq 5 ac](https://mikrotik.com/product/sxtsq_5_ac) | Streakwave | 53.00 | 8 | 8 |
 | [MikroTik mANTBox 15s](https://mikrotik.com/product/RB921GS-5HPacD-15S) | Streakwave | 117.00 | 4 | 4 |
 | [MikroTik OmniTIK 5 PoE ac](https://mikrotik.com/product/rbomnitikpg_5hacd) | Streakwave | 109.00 | 4 | 4 |
-| [MikroTik wAP ac 3x3 (black)](https://mikrotik.com/product/RBwAPG-5HacT2HnD-BE) | Streakwave | 73.00 | 3 | 0 |
+| [MikroTik wAP ac 3x3 (black)](https://mikrotik.com/product/RBwAPG-5HacT2HnD-BE) | Streakwave | 73.00 | 3 | 3 |
 | [MikroTik cAP ac](https://mikrotik.com/product/cap_ac) (return) | Streakwave | 56.50 | 1 | 1 |
 | [MikroTik QMP mount](https://mikrotik.com/product/QMP) | Streakwave | 6.00 | 2 | 2 |
 | Ubiquiti UBAM mount | Streakwave | 8.00 | 2 | 2 |
 | Cat5e connectors (100 pcs) | Streakwave | 29.96 | 1 | 1 |
-| [ESPRESSObin V5 64 Bit](https://www.amazon.com/ESPRESSObin-Single-Computer-Network-Switch/dp/B06Y3V2FBK/) | Amazon | 49.00 | 10 (2) | 7 |
-| [ESPRESSObin V7 64 Bit](https://www.amazon.com/ESPRESSObin-Single-Computer-Network-Switch/dp/B07KTMBCS1/) | Amazon | 79.00 | 2 (1) | 1 |
-[ESPRESSOBIN+ power supply](https://www.amazon.com/ESPRESSObin-Single-Computer-Network-Switch/dp/B07KTC9JVB/) | Amazon | 10.00 | 10 (2) | 6 |
+| [ESPRESSObin V5 64 Bit](https://www.amazon.com/ESPRESSObin-Single-Computer-Network-Switch/dp/B06Y3V2FBK/) | Amazon | 49.00 | 10 (2) | 10 |
+| [ESPRESSObin V7 64 Bit](https://www.amazon.com/ESPRESSObin-Single-Computer-Network-Switch/dp/B07KTMBCS1/) | Amazon | 79.00 | 2 (1) | 2 |
+[ESPRESSOBIN+ power supply](https://www.amazon.com/ESPRESSObin-Single-Computer-Network-Switch/dp/B07KTC9JVB/) | Amazon | 10.00 | 10 (2) | 10 |
 | [NETGEAR 5-Port Gigabit Managed Switch](https://www.amazon.com/dp/B07PJ7XZ7X/) | Amazon | 36.99 | 5 | 5 |
 | [Outdoor Junction Box](https://www.amazon.com/LeMotech-Dustproof-Waterproof-Electrical-200mmx155mmx80mm/dp/B075DHT7X2/) | Amazon | 29.99 | 6 | 6 |
 | [UCTRONICS PoE Splitter (Gigabit 802.3af Micro-USB 5V)](https://www.amazon.com/UCTRONICS-PoE-Splitter-Gigabit-Raspberry/dp/B07CNKX14C/) | Amazon | 15.00 | 15 | 1 |
@@ -62,7 +62,7 @@ The following is a listing of our equipment inventory.
 | Streakwave #1         |  334.00 |`Shipped`|
 | Amazon #1             |  336.16 |`Shipped`|
 | Streakwave #2         | 1456.32 |`Shipped`|
-| Amazon #2             |  837.00 |`Ordered`|
-| Streakwave #3         |  901.09 |`Ordered`|
-| Installation expenses |  500.00 |`Pending`|
-| **Total**             | 4373.48 |         |
+| Amazon #2             |  837.00 |`Shipped`|
+| Streakwave #3         |  901.09 |`Shipped`|
+| Installation expenses |  540.00 |`Pending`|
+| **Total**             | 4413.48 |         |

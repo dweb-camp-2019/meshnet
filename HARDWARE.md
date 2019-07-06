@@ -33,7 +33,7 @@ The following is a listing of our equipment inventory.
 [ESPRESSOBIN+ power supply](https://www.amazon.com/ESPRESSObin-Single-Computer-Network-Switch/dp/B07KTC9JVB/) | Amazon | 10.00 | 10 (2) | 10 |
 | [NETGEAR 5-Port Gigabit Managed Switch](https://www.amazon.com/dp/B07PJ7XZ7X/) | Amazon | 36.99 | 5 | 5 |
 | [Outdoor Junction Box](https://www.amazon.com/LeMotech-Dustproof-Waterproof-Electrical-200mmx155mmx80mm/dp/B075DHT7X2/) | Amazon | 29.99 | 6 | 6 |
-| [UCTRONICS PoE Splitter (Gigabit 802.3af Micro-USB 5V)](https://www.amazon.com/UCTRONICS-PoE-Splitter-Gigabit-Raspberry/dp/B07CNKX14C/) | Amazon | 15.00 | 15 | 1 |
+| [UCTRONICS PoE Splitter (Gigabit 802.3af Micro-USB 5V)](https://www.amazon.com/UCTRONICS-PoE-Splitter-Gigabit-Raspberry/dp/B07CNKX14C/) | Amazon | 15.00 | 15 | 15 |
 | PoE Splitter (10/100 802.3af Micro-USB 5V) | n/a | n/a | 2 (2) | 2 |
 | PoE Splitter (10/100 802.3af Barrel 12V) | n/a | n/a | 2 (2) | 2 |
 | SRW224P (10/100 24-port PoE switch) | n/a | n/a | 1 (1) | 1 |

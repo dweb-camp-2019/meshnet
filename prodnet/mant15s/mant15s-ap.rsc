@@ -11,17 +11,8 @@ set name="mANT 15s"
 set time-zone-name=America/Los_Angeles
 
 # Configure bridge
-/interface list
-add name=WAN
-add name=LAN
-
-/interface list member
-add interface=ether1 list=WAN
-add interface=sfp1 list=LAN
-add interface=wlan1 list=LAN
-
 /interface bridge
-add name=bridge comment=defconf
+add name=bridge
 
 /interface bridge port
 add bridge=bridge interface=ether1
@@ -30,8 +21,7 @@ add bridge=bridge interface=wlan1
 
 # Configure DHCP
 /ip dhcp-client
-add comment=defconf \
-dhcp-options=hostname,clientid \
+add dhcp-options=hostname,clientid \
 disabled=no \
 interface=bridge
 
@@ -53,5 +43,5 @@ channel-width=20/40/80mhz-Ceee \
 frequency=auto \
 wireless-protocol=802.11 \
 mode=ap-bridge \
-ssid=dwebcamp \
+ssid="dwebcamp" \
 security-profile=default

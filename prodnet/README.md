@@ -90,6 +90,8 @@ We configured the ESPRESSObin to have only one `wan` port. Babel needs to distin
     |:--------|:-:|:-:|:-:|:-:|:-:|
     | VLAN ID | 1 | 2 | 3 | 4 |all|
 
+1. Apply the configurations, then wait 30 seconds to ensure the changes are saved
+
 1. Connect `port 5` to the ESPRESSObin `wan` port, and use the VLAN tagged ports for point-to-point radios or ethernet cables that are connect mesh nodes
 
 1. If this is an Internet Gatway node, connect your Internet backhaul to `port 4` (since we have `wan.4` configured to be the Internet route for Internet Gateway ESPRESSObins)
@@ -101,6 +103,8 @@ Directional radios that make a point-to-point link are put into bridge mode to s
 ### MikroTik SXTsq 5 ac (5 GHz)
 
 1. Download the latest release of [RouterOS for the SXTsq 5 ac](https://mikrotik.com/product/sxtsq_5_ac) (`v6.44.3 (stable)` is the version used)
+
+1. Connect your computer to the ethernet port of the MikroTik device and configure the static IP `192.168.88.100` on the local network interface
 
 1. Connect to `192.168.88.1` and login to the web interface as `admin` without password, upload the `.npk` file and reboot the device, then verify RouterOS is upgraded to the latest
 
@@ -135,11 +139,21 @@ There will be two users: `admin` with `ADMIN_PASSWORD`, and `me` with no passwor
 
 ### MikroTik OmniTIK 5 PoE ac (Outdoor Omnidirectional)
 
-TODO
+1. Connect your computer to one of the LAN ethernet ports of the MikroTik device and configure the static IP `192.168.88.100` on the local network interface
+
+1. SSH into the device with `ssh admin@192.168.88.1`
+
+1. Ensure the device has fresh configurations, run `/system reset-configuration` if needed
+
+1. Run [omnitik/omnitik-ap.rsc](omnitik/omnitik-ap.rsc) after replacing the `ADMIN_PASSWORD`
 
 ### MikroTik mANTBox 15s (Outdoor Sector)
 
-1. Connect device to a router with a DHCP server and scan for the IP address of the mANTBox 15s with a tool like `nmap`
+1. Connect the MikroTik device to a router with a DHCP server
+
+1. Connect your computer to the router (not to the access point of the MikroTik device, otherwise configuration scripts will not fully execute whenever a command resets the access point)
+
+1. Scan for the IP address of the MikroTik device with a tool like `nmap` or `arp-scan`
 
 1. SSH into the device with `ssh admin@IP_ADDRESS`
 
@@ -147,9 +161,33 @@ TODO
 
 1. Run [mant15s/mant15s-ap.rsc](mant15s/mant15s-ap.rsc) after replacing the `ADMIN_PASSWORD`
 
-### MikroTik cAP ac (Indoor Omnidirectional)
+### MikroTik cAP ac (Indoor Dual-band Omnidirectional)
 
-TODO
+1. Connect the MikroTik device to a router with a DHCP server
+
+1. Connect your computer to the router (not to the access point of the MikroTik device, otherwise configuration scripts will not fully execute whenever a command resets the access point)
+
+1. Scan for the IP address of the MikroTik device with a tool like `nmap` or `arp-scan`
+
+1. SSH into the device with `ssh admin@IP_ADDRESS`
+
+1. Ensure the device has fresh configurations, run `/system reset-configuration` if needed
+
+1. Run [cap/cap-ap.rsc](cap/cap-ap.rsc) after replacing the `ADMIN_PASSWORD`
+
+### MikroTik wAP ac 3x3 (Indoor Dual-band Omnidirectional)
+
+1. Connect the MikroTik device to a router with a DHCP server
+
+1. Connect your computer to the router (not to the access point of the MikroTik device, otherwise configuration scripts will not fully execute whenever a command resets the access point)
+
+1. Scan for the IP address of the MikroTik device with a tool like `nmap` or `arp-scan`
+
+1. SSH into the device with `ssh admin@IP_ADDRESS`
+
+1. Ensure the device has fresh configurations, run `/system reset-configuration` if needed
+
+1. Run [wap/wap-ap.rsc](wap/wap-ap.rsc) after replacing the `ADMIN_PASSWORD`
 
 ## Client PoE Switches
 

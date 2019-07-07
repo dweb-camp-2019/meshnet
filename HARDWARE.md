@@ -24,7 +24,7 @@ The following is a listing of our equipment inventory.
 | [MikroTik mANTBox 15s](https://mikrotik.com/product/RB921GS-5HPacD-15S) | Streakwave | 117.00 | 4 | 4 |
 | [MikroTik OmniTIK 5 PoE ac](https://mikrotik.com/product/rbomnitikpg_5hacd) | Streakwave | 109.00 | 4 | 4 |
 | [MikroTik wAP ac 3x3 (black)](https://mikrotik.com/product/RBwAPG-5HacT2HnD-BE) | Streakwave | 73.00 | 3 | 3 |
-| [MikroTik cAP ac](https://mikrotik.com/product/cap_ac) (return) | Streakwave | 56.50 | 1 | 1 |
+| [MikroTik cAP ac](https://mikrotik.com/product/cap_ac) | Streakwave | 56.50 | 1 | 1 |
 | [MikroTik QMP mount](https://mikrotik.com/product/QMP) | Streakwave | 6.00 | 2 | 2 |
 | Ubiquiti UBAM mount | Streakwave | 8.00 | 2 | 2 |
 | Cat5e connectors (100 pcs) | Streakwave | 29.96 | 1 | 1 |

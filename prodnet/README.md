@@ -179,15 +179,19 @@ There will be two users: `admin` with `ADMIN_PASSWORD`, and `me` with no passwor
 
 1. Connect the MikroTik device to a router with a DHCP server
 
-1. Connect your computer to the router (not to the access point of the MikroTik device, otherwise configuration scripts will not fully execute whenever a command resets the access point)
+1. Connect your computer directly to the MikroTik device using wireless (not ethernet). There should be 2 new SSIDs for it.
 
 1. Scan for the IP address of the MikroTik device with a tool like `nmap` or `arp-scan`
 
 1. SSH into the device with `ssh admin@IP_ADDRESS`
 
-1. Ensure the device has fresh configurations, run `/system reset-configuration` if needed
-
-1. Run [wap/wap-ap.rsc](wap/wap-ap.rsc) after replacing the `ADMIN_PASSWORD`
+1. Run the commands in [wap/wap-ap.rsc](wap/wap-ap.rsc) in stages:
+    1. Run the first command after replacing the `ADMIN_PASSWORD`.
+    1. Run the next commands upto and including line 54, this will change the password and break your admin connection.
+    1. Reconnect with the wAP using the new password from line 54
+	1. Run `nmap` again to get device's new IP
+	1. SSH into the device again with it's new IP. (`ssh admin@IP_ADDRESS`)
+    1. Continue running the rest of the commands in [wap/wap-ap.rsc](wap/wap-ap.rsc). depending on whether you connected to the 5GHz or 2.4GHz SSID you might break the admin connection one more time, or you will complete the last command and then it will break the connection. (Commands 56-67 are for 2.4GHz, 69-80 are for 5GHz). Keep reconnecting until you've run all of the commands.
 
 ## Client PoE Switches
 

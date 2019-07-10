@@ -66,6 +66,7 @@ mode=ap-bridge \
 ssid="dwebcamp 2.4G" \
 security-profile=default
 
+/interface wireless
 set [ find default-name=wlan2 ] \
 disabled=no \
 country="united states3" \

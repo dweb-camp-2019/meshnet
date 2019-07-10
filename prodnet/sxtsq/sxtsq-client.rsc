@@ -26,6 +26,7 @@ tx-power-mode=all-rates-fixed \
 tx-power=17 \
 ssid=sxt-ptp-ap \
 security-profile=default
+
 /interface wireless connect-list
 add interface=wlan1 \
 ssid=sxt-ptp-ap \
@@ -50,13 +51,17 @@ set numbers=10 disabled=yes
 
 # Configure DHCP on interfaces
 /ip dhcp-client
-set [ find interface=wlan1 ] disabled=yes
+set [ find interface=wlan1 ] \
+disabled=yes
+
 /ip dhcp-server
-set [ find interface=ether1 ] disabled=yes
+set [ find interface=ether1 ] \
+disabled=yes
 
 # Bridge ether1 and wlan1
 /interface bridge
 add name=br1
+
 /interface bridge port
 add bridge=br1 interface=ether1
 add bridge=br1 interface=wlan1
@@ -70,4 +75,5 @@ set telnet disabled=yes
 
 # Change management IP address of ether1 to avoid conflict with AP
 /ip address
-set [ find interface=ether1 ] address=192.168.88.3/24
+set [ find interface=ether1 ] \
+address=192.168.88.3/24

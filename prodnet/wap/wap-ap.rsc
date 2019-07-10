@@ -38,7 +38,9 @@ set numbers=10 disabled=yes
 
 # Configure DHCP
 /ip dhcp-server
-set [ find interface=bridge ] disabled=yes
+set [ find interface=bridge ] \
+disabled=yes
+
 /ip dhcp-client
 add dhcp-options=hostname,clientid \
 disabled=no \
@@ -66,6 +68,7 @@ mode=ap-bridge \
 ssid="dwebcamp 2.4G" \
 security-profile=default
 
+/interface wireless
 set [ find default-name=wlan2 ] \
 disabled=no \
 country="united states3" \

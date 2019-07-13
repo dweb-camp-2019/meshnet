@@ -49,7 +49,7 @@ The following is a listing of our equipment inventory.
 | Ethernet cable crimper | n/a | n/a | 3 (3) |
 | Ethernet cable tester | n/a | n/a | 1 (1) |
 | SD card | n/a | n/a | 12 (12) |
-| Hard drive | n/a | n/a | 2 (2) |
+| 1 TB SSD with USB enclosure | n/a | n/a | 2 (2) |
 | Cooling fans (for outdoor nodes) | n/a | n/a | 6 (6) |
 
 ## Budget

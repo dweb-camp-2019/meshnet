@@ -36,14 +36,20 @@ The following is a listing of our equipment inventory.
 | [UCTRONICS PoE Splitter (Gigabit 802.3af Micro-USB 5V)](https://www.amazon.com/UCTRONICS-PoE-Splitter-Gigabit-Raspberry/dp/B07CNKX14C/) | Amazon | 15.00 | 15 |
 | PoE Splitter (10/100 802.3af Micro-USB 5V) | n/a | n/a | 2 (2) |
 | PoE Splitter (10/100 802.3af Barrel 12V) | n/a | n/a | 2 (2) |
+| UniFi Switch 16 (10/100/1000 16-port PoE switch) | n/a | n/a | 1 (1) |
 | SRW224P (10/100 24-port PoE switch) | n/a | n/a | 1 (1) |
 | SRW208P (10/100 8-port PoE switch) | n/a | n/a | 2 (2) |
+| GS608 (10/100/1000 8-port switch) | n/a | n/a | 1 (1) |
+| GS108T (10/100/1000 8-port switch) | n/a | n/a | 2 (2) |
+| GS108 (10/100/1000 8-port switch) | n/a | n/a | 2 (2) |
+| EN104TP (10M 4-port switch) | n/a | n/a | 1 (1) |
+| ER-X-SFP EdgeRouterX SFP | n/a | n/a | 1 (1) |
 | Raspberry Pi 3B+ | n/a | n/a | 4 (4) |
 | Ethernet cable spool (1000 ft) | n/a | n/a | 2 (2) |
 | Ethernet cable crimper | n/a | n/a | 3 (3) |
 | Ethernet cable tester | n/a | n/a | 1 (1) |
 | SD card | n/a | n/a | 12 (12) |
-| Hard drive | n/a | n/a | 1 (1) |
+| Hard drive | n/a | n/a | 2 (2) |
 | Cooling fans (for outdoor nodes) | n/a | n/a | 6 (6) |
 
 ## Budget

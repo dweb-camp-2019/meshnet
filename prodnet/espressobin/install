@@ -3,12 +3,18 @@
 set -e
 
 NODE_TYPE=$1
+NODE_ID=$2
 
 # Remove user me from sudo group
 sudo deluser me sudo || true
 
-# Randomize nodeid segment between 10:255
-nodeid=$((RANDOM % 246 + 10))
+# Set nodeid
+if [[ -z "$NODE_ID" ]]; then
+  # Randomize nodeid segment between 10:255
+  nodeid=$((RANDOM % 246 + 10))
+else
+  nodeid=$NODE_ID
+fi
 
 # Identify node type
 if [[ "$NODE_TYPE" == "edge" ]] || [[ "$NODE_TYPE" == "relay" ]] || [[ "$NODE_TYPE" == "gateway" ]]; then

@@ -8,13 +8,16 @@ NODE_ID=$2
 # Remove user me from sudo group
 sudo deluser me sudo || true
 
-# Set nodeid
-if [[ -z "$NODE_ID" ]]; then
-  # Randomize nodeid segment between 10:255
-  nodeid=$((RANDOM % 246 + 10))
+# Set node ID which must be unique across the network
+if [[ -z "$NODE_ID" ]] || [[ $NODE_ID -lt 0 ]] || [[ $NODE_ID -gt 99 ]]; then
+  # Randomize nodeid segment between 0:99
+  nodeid=$((RANDOM % 100))
 else
   nodeid=$NODE_ID
 fi
+
+# Set management ID for management interfaces
+mid=$((nodeid + 100))
 
 # Identify node type
 if [[ "$NODE_TYPE" == "edge" ]] || [[ "$NODE_TYPE" == "relay" ]] || [[ "$NODE_TYPE" == "gateway" ]]; then
@@ -118,7 +121,7 @@ sudo tee /etc/network/interfaces.d/wan:0 << END
 auto wan:0
 allow-hotplug wan:0
 iface wan:0 inet static
-    address 192.168.88.$nodeid
+    address 192.168.88.$mid
     netmask 255.255.255.0
     network 192.168.88.0
     broadcast 192.168.88.255
@@ -139,7 +142,7 @@ END
 sudo tee /etc/network/interfaces.d/wan.$vlan:0 << END
 auto wan.$vlan:0
 iface wan.$vlan:0 inet static
-    address 192.168.88.$nodeid
+    address 192.168.88.$mid
     netmask 255.255.255.0
     network 192.168.88.0
     broadcast 192.168.88.255

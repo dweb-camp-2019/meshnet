@@ -128,6 +128,8 @@ iface wan:0 inet static
 END
 
 # Configure VLANs for nodes with multiple point-to-point mesh links (require pre-tagged packets into wan)
+if [[ "$NODE_TYPE" == 'relay' ]] || [[ "$NODE_TYPE" == 'gateway' ]]; then
+
 for vlan in 1 2 3 4; do
 sudo tee /etc/network/interfaces.d/wan.$vlan << END
 auto wan.$vlan
@@ -148,6 +150,8 @@ iface wan.$vlan:0 inet static
     broadcast 192.168.88.255
 END
 done
+
+fi
 
 # Configure wan.4 interface and routes for gateway node
 if [[ "$NODE_TYPE" == 'gateway' ]]; then

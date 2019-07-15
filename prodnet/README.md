@@ -68,12 +68,12 @@ We will configure the ESPRESSObin board so `wan` is used to connect point-to-poi
     |`relay`  | Node with multiple _Point-to-point Mesh Radios_ and relays traffic for other nodes |
     |`gateway`| Node that routes the local network to the Internet                                 |
  
-    then run:
+    then run with a `TYPE` from above and a `NODE_ID` between 0 to 99:
 
     ```
     # wget https://raw.githubusercontent.com/dweb-camp-2019/meshnet/master/prodnet/espressobin/install
     # chmod +x install
-    # ./install TYPE
+    # ./install TYPE NODE_ID
     ```
 
 ### NETGEAR GS305E Gigabit Managed Switch

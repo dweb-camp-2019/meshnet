@@ -1,0 +1,54 @@
+/**
+ * Custom css
+ */
+
+.sidebar {
+  min-width: $sidebar-width;
+}
+
+.content {
+  background: $content-background;
+  font-weight: 400;
+
+  a {
+    text-decoration: none;
+    color: $link-color;
+
+    &:hover {
+      color: $link-color;
+      text-decoration: underline;
+    }
+  }
+
+  img[alt=thumbnail] {
+    width: 420px;
+    object-fit: contain;
+  }
+
+  ol {
+    counter-reset: ol-count;
+
+    li {
+      counter-increment: ol-count;
+      display: table;
+
+      &:before {
+        content: counter(ol-count) ".";
+        display: table-cell;
+        padding-right: 0.4em;
+      }
+    }
+  }
+
+  ul {
+    li {
+      display: table;
+
+      &:before {
+        content: "•";
+        display: table-cell;
+        padding-right: 0.4em;
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+title: Meshnet @ DWeb Camp 2019
+description: Design and build of the collaborative conference network
+url: "https://github.com/dweb-camp-2019/meshnet" # the base hostname & protocol for your site, e.g. http://example.com
+
+# Build settings
+markdown: kramdown
+kramdown:
+  syntax_highlighter_opts:
+    disable : true
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+
+sass:
+  sass_dir: _sass
+  style: compressed

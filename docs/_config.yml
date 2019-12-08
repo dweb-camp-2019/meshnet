@@ -1,6 +1,6 @@
 title: Meshnet @ DWeb Camp 2019
 description: Design and build of the collaborative conference network
-url: "https://github.com/dweb-camp-2019/meshnet" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://dweb-camp-2019.github.io/meshnet/" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Build settings
 markdown: kramdown

@@ -1,0 +1,19 @@
+install:
+  - apt install libmagick++-dev
+  - gem install rmagick exifr
+
+script:
+  - jekyll build
+  - touch ./docs/_site/.nojekyll
+
+deploy:
+  - provider: pages
+    github-token:
+      secure: 
+    local-dir: docs/_site
+    target-branch: gh-pages
+    keep-history: false
+    skip-cleanup: true
+    on:
+      branch: master
+      

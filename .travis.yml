@@ -1,5 +1,6 @@
 install:
-  - sudo apt install libmagick++-dev
+  - sudo apt-get update
+  - sudo apt-get install libmagick++-dev
   - gem install rmagick exifr
 
 script:

@@ -1,0 +1,25 @@
+---
+layout: page
+---
+<style TYPE="text/css">
+.gallery-wrapper {
+  width: 35em;
+  text-align: center;
+  padding: 1em 0 4em 0;
+}
+.gallery-best-image{
+  max-height: 20em;
+  max-width: 20em;
+}
+</style>
+<h2 id="44-photo-gallery">4.4 Photo Gallery</h2>
+{% for gallery in page.galleries %}
+{% assign album_image = gallery['images'] | sort: 'name' | first %}
+<div class="gallery-wrapper">
+    <a href="{{ gallery['gallery'] }}">
+        <img class="gallery-best-image" src="{{ gallery['gallery'] }}/thumbs/{{ album_image.name }}">
+    </a>
+    <h3><a href="{{ gallery['gallery'] }}">{{ gallery["name"] }}</a></h3>
+    {{ gallery["images"] | size }} image{% if gallery["images"].size != 1 %}s{% endif %}
+</div>
+{% endfor %}

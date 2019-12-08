@@ -16,3 +16,16 @@ exclude:
 sass:
   sass_dir: _sass
   style: compressed
+
+plugins:
+  - jekyll-gallery-generator
+
+# Configurations for ggreer/jekyll-gallery-generator
+gallery:
+  dir: gallery                         # Path to the gallery
+  symlink: false                       # false: copy images into _site. true: create symbolic links (saves disk space)
+  title: "4.4 Photo Gallery"           # Title for gallery index page
+  title_prefix: "4.4 Photo Gallery: "  # Title prefix for gallery pages. Gallery title = title_prefix + gallery_name
+  thumbnail_size:
+    x: 480                             # max width of thumbnails (in pixels)
+    y: 480                             # max height of thumbnails (in pixels)

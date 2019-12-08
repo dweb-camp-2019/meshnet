@@ -4,8 +4,7 @@ install:
   - gem install rmagick exifr
 
 script:
-  - jekyll build
-  - touch ./docs/_site/.nojekyll
+  - cd docs; bundle install; bundle exec jekyll build; touch ./_site/.nojekyll; cd ..
 
 deploy:
   - provider: pages

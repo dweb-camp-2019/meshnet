@@ -1,5 +1,5 @@
 install:
-  - apt install libmagick++-dev
+  - sudo apt install libmagick++-dev
   - gem install rmagick exifr
 
 script:
@@ -16,4 +16,3 @@ deploy:
     skip-cleanup: true
     on:
       branch: master
-      

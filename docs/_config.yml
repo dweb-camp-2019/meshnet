@@ -1,5 +1,5 @@
-title: Meshnet @ DWeb Camp 2019
-description: Design and build of the collaborative conference network
+title: Meshnet 📡 DWeb Camp 2019
+description: Design, build, and stewardship of the participatory network
 url: "https://dweb-camp-2019.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 baseurl: "/meshnet"
 
@@ -21,12 +21,12 @@ sass:
 plugins:
   - jekyll-gallery-generator
 
-# Configurations for ggreer/jekyll-gallery-generator
+# Configurations for ggreer/jekyll-gallery-generator (with custom layouts)
 gallery:
   dir: gallery                         # Path to the gallery
   symlink: false                       # false: copy images into _site. true: create symbolic links (saves disk space)
-  title: "4.4 Photo Gallery"           # Title for gallery index page
-  title_prefix: "4.4 Photo Gallery: "  # Title prefix for gallery pages. Gallery title = title_prefix + gallery_name
+  title: "5.4 Photo Gallery"           # Title for gallery index page
+  title_prefix: "5.4 Photo Gallery: "  # Title prefix for gallery pages. Gallery title = title_prefix + gallery_name
   thumbnail_size:
     x: 480                             # max width of thumbnails (in pixels)
     y: 480                             # max height of thumbnails (in pixels)

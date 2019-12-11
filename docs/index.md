@@ -41,7 +41,7 @@ The idea of a participatory network may seem foreign, but not for those who have
 
 ### Documentation Outline
 
-The technical design of the mesh network is documented in [Section 2](2.0-network-design.html) and [Section 3](3.0-social-experience.html) summarizes the social aspect of this project and the learnings that come out of running this participatory network together. [Section 4](4.0-planning-notes.html) contains early planning notes and [Section 5](5.0-additional-resources.html) has additional resources and a [5.4 Photo Gallery](gallery/2019/) of the network design and build.
+The technical design of the mesh network is documented in [Section 2](2.0-network-design.html), and [Section 3](3.0-social-experience.html) summarizes the social aspect of this project and the learnings that came out of running this participatory network together. [Section 4](4.0-planning-notes.html) contains early planning notes and [Section 5](5.0-additional-resources.html) has additional resources and a [Photo Gallery](gallery/2019/) of the network design and build.
 
 ![mesh-welcome](images/mesh-welcome.jpg)
 

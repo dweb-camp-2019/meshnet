@@ -23,7 +23,7 @@ in a connectivity environment that more closely resembles large parts of the wor
 and co-imagine the social processes and local technologies that will help us organize day-to-day,
 and make inclusive spaces to learn from each other and build capacity around human-empowering technologies.
 
-We decided to build an experimental network for an experimental event at a new venue that is in itself undergoing its own experiment, but we also knew our 500 expected participants is exactly the right crowd to experiment with together, so we drafted the following design goals:
+We decided to build an experimental network for an experimental event at a new venue that is itself undergoing its own experiment, but we also knew our 500 expected participants is exactly the right crowd to experiment with together, so we drafted the following design goals:
 
 - Reliable local network with 802.11ac speeds
 - Access points in key areas for client devices (e.g. phones and laptops) to connect
@@ -51,6 +51,6 @@ We hope this documentation will serve as a reference and inspire future instance
 
 The source code in the [GitHub repository](https://github.com/dweb-camp-2019/meshnet/) is licensed under [GNU General Public License version 3 (GPL-3.0)](https://github.com/dweb-camp-2019/meshnet/tree/master/licenses/LICENSE-GPL-3.0).
 
-Content on this website are licensed under [Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://github.com/dweb-camp-2019/meshnet/tree/master/licenses/LICENSE-CC-BY-SA-4.0), with the exception of the [5.4 Photo Gallery](gallery/2019/) that features photos from multiple photographers.
+Content on this website is licensed under [Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://github.com/dweb-camp-2019/meshnet/tree/master/licenses/LICENSE-CC-BY-SA-4.0), with the exception of the [5.4 Photo Gallery](gallery/2019/) that features photos from multiple photographers.
 
 The website is generated using [Jekyll](https://jekyllrb.com) and [ImageMagick](https://imagemagick.org), and contains modified versions of source code from the Jekyll theme [alexander-heimbuch/millidocs](https://github.com/alexander-heimbuch/millidocs) licensed under [The MIT License (MIT)](https://github.com/dweb-camp-2019/meshnet/tree/master/licenses/LICENSE-MIT) and [ggreer/jekyll-gallery-generator](https://github.com/ggreer/jekyll-gallery-generator) licensed under [Apache 2.0](https://github.com/dweb-camp-2019/meshnet/tree/master/licenses/LICENSE-Apache-2.0).

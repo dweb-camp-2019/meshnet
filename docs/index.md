@@ -46,6 +46,7 @@ The technical design of the mesh network is documented in [Section 2](2.0-networ
 ![mesh-welcome](images/mesh-welcome.jpg)
 
 We hope this documentation will serve as a reference and inspire future instances of participatory networks at events and communities.
+If you have feedback or would like to learn more about this project, please email [hello [at] hypha.coop](mailto:hello@hypha.coop) to get in touch!
 
 ### Licenses
 

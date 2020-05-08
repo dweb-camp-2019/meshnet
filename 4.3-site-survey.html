@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>4.3 Site Survey</title>
+  <meta name="description" content="Design, build, and stewardship of the participatory network">
+
+	<link rel="icon" href="/meshnet/assets/images/favicon.ico">
+  <link rel="canonical" href="https://dweb-camp-2019.github.io/meshnet/4.3-site-survey.html">
+
+	<link rel="stylesheet" href="/meshnet/assets/css/docs.css">
+
+</head>
+
+	<body>
+		<div class="wrapper">
+			<sidebar class="sidebar" id="sidebar">
+	<div class="sidebar-mobile">
+		<img src="/meshnet/assets/images/menu.svg" class="menu-icon" id="menu" />
+		<img src="/meshnet/assets/images/close.svg" class="close-icon" id="close" />
+	</div>
+	<div class="search">
+	<input type="text" class="search-input" id="search-input" placeholder="Type to search" />
+</div>
+
+	<div class="sidebar-main">
+		<ul class="navigation" id="navigation">																						<li>				<a class="" href="/meshnet/">					1.0 Project Overview				</a>			</li>								<li>				<a class="" href="/meshnet/2.0-network-design.html">					2.0 Network Design				</a>			</li>								<li>				<a class="" href="/meshnet/2.1-espressobin-router.html">					2.1 ESPRESSObin Router				</a>			</li>								<li>				<a class="" href="/meshnet/2.2-vlan-managed-switch.html">					2.2 VLAN Managed Switch				</a>			</li>								<li>				<a class="" href="/meshnet/2.3-point-to-point-mesh-radios.html">					2.3 Point-to-Point Mesh Radios				</a>			</li>								<li>				<a class="" href="/meshnet/2.4-access-point-radios.html">					2.4 Access Point Radios				</a>			</li>								<li>				<a class="" href="/meshnet/2.5-client-poe-switches.html">					2.5 Client PoE Switches				</a>			</li>								<li>				<a class="" href="/meshnet/3.0-social-experience.html">					3.0 Social Experience				</a>			</li>								<li>				<a class="" href="/meshnet/3.1-collaborative-planning.html">					3.1 Collaborative Planning				</a>			</li>								<li>				<a class="" href="/meshnet/3.2-network-stewards.html">					3.2 Network Stewards				</a>			</li>								<li>				<a class="" href="/meshnet/3.3-incident-response.html">					3.3 Incident Response				</a>			</li>								<li>				<a class="" href="/meshnet/3.4-local-services.html">					3.4 Local Services				</a>			</li>								<li>				<a class="" href="/meshnet/3.5-retrospective.html">					3.5 Retrospective				</a>			</li>								<li>				<a class="" href="/meshnet/4.0-planning-notes.html">					4.0 Planning Notes				</a>			</li>								<li>				<a class="" href="/meshnet/4.1-client-device-roaming.html">					4.1 Client Device Roaming				</a>			</li>								<li>				<a class="" href="/meshnet/4.2-babel-wireguard-mesh.html">					4.2 Babel + WireGuard Mesh				</a>			</li>								<li>				<a class="active" href="/meshnet/4.3-site-survey.html">					4.3 Site Survey				</a>			</li>								<li>				<a class="" href="/meshnet/4.4-planning-questions.html">					4.4 Planning Questions				</a>			</li>								<li>				<a class="" href="/meshnet/5.0-additional-resources.html">					5.0 Additional Resources				</a>			</li>								<li>				<a class="" href="/meshnet/5.1-application-testnet.html">					5.1 Application Testnet				</a>			</li>								<li>				<a class="" href="/meshnet/5.2-hardware-inventory.html">					5.2 Hardware Inventory				</a>			</li>								<li>				<a class="" href="/meshnet/5.3-graphic-assets.html">					5.3 Graphic Assets				</a>			</li>								<li>				<a class="" href="/meshnet/gallery/2019/">					5.4 Photo Gallery				</a>			</li>			</ul>
+
+		<ul id="search-results" class="navigation"></ul>
+
+	</div>
+</sidebar>
+
+			<main class="content">
+				<div class="inner">
+					<h2 id="43-site-survey">4.3 Site Survey</h2>
+
+<p>This is a summary of notes from my visit to The Farm that is relevant to the planning of the local mesh network, and some follow-up discussions with various people that happened over April.</p>
+
+<p>Upon arriving to The Farm on March 31, the first thing I realized was how huge the area is, and that the Camp will stay mostly near the areas around the buildings. We may have to connect to one point further away from the buildings to get Internet access (more on that later), but we should prioritize getting the main indoor and outdoor spaces reliable local network access for devices of 500 people, and not worry too much about connectivity in areas far from the buildings.</p>
+
+<h3 id="existing-network--internet-access">Existing Network &amp; Internet Access</h3>
+
+<p>Let’s start with what connectivity currently exists at The Farm based on a <a href="https://dwebcamp.org/proposals-spaces/">rough map of the zones we defined for the Camp</a>.</p>
+
+<p><img src="images/sitemap.jpg" alt="sitemap" /></p>
+
+<p>The <em>Hacking Zone</em> is the most well connected space, where staff offices and indoor facilities like the <em>Tea Lounge</em> currently exist. Inside these buildings, one can connect to the <em>Indoor AP</em> SSID made available with Ubiquiti APs wired to a switch in one of the offices. Beyond this cluster of buildings, one can connect to the <em>Outdoor AP</em> which is wirelessly connected in a mesh topology using the omnidirectional <a href="https://unifi-mesh.ui.com">Ubiquiti UniFi Mesh devices</a>. The Internet access speeds are similar but outdoor coverage is more spotty, and having 500 people would likely overwhelm the sparsely distributed outdoor devices and the existing Internet backhaul.</p>
+
+<p><img src="images/internet.jpg" alt="internet" /></p>
+
+<p>The existing Internet access is beamed across the ocean from Monterey more than 50 km away. It can theoretically reach up to 40 Mbps, but in the two days I was there it measured something like 5 Mbps download and 12 Mbps upload, and was down one of the mornings. Phone connectivity to cellular service is extremely poor, most people have zero service while some people have spotty coverage.</p>
+
+<h3 id="on-going-work-for-internet-access">On-going Work for Internet Access</h3>
+
+<p>While we have been planning for <em>a 500+ Mbps local network with no Internet access at all</em>, there is a parallel effort led by Jonah to source Internet access to the Camp. We have discussed ideas like having different types of connectivities, and segmenting them into different SSIDs so Camp participants can experiment with them.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Connection type</th>
+      <th style="text-align: left">Speed (Mbps)</th>
+      <th style="text-align: left">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Fiber (dark or new)</td>
+      <td style="text-align: left">1000</td>
+      <td style="text-align: left">Not feasible due to cost and lead time</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Wired from large ISP</td>
+      <td style="text-align: left">100 - 1000</td>
+      <td style="text-align: left">Require build-out and contract, not feasible due to cost and lead time</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Local wireless ISPs</td>
+      <td style="text-align: left">20 - 100</td>
+      <td style="text-align: left">Currently evaluating locations for new relay tower (this is where we may have a solar-powered node acting as relay to main meshnet cluster)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Existing long-distance link</td>
+      <td style="text-align: left">40</td>
+      <td style="text-align: left">Investigating whether provider can improve bandwidth and reliability</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Satellite</td>
+      <td style="text-align: left">30</td>
+      <td style="text-align: left">Potentially as emergency link but cost structure (max bytes) infeasible for general use</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Cellular</td>
+      <td style="text-align: left">?</td>
+      <td style="text-align: left">Potentially emergency or general use, using range extenders with a 4G provider that has service in the area</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>None of these options is confirmed at the time of writing due to service availability and cost considerations. If some of these play out, they will likely be late additions that we’d confirm closer to July and it is entirely possible that none of these options will be available!</p>
+
+<h3 id="local-network-prototyping">Local Network Prototyping</h3>
+
+<p>These MicroTik devices came in the week I was at the Internet Archive so I was able to pick up these for prototyping, along with a pair of ESPRESSObin and a PoE switch I borrowed from Yurko at Toronto Mesh.</p>
+
+<p><img src="images/wireless.jpg" alt="wireless" /></p>
+
+<p>I also reached out to LibreRouter and SolidRun, but they don’t fit very well with our event timelines. I am hoping to run Babel on the ESPRESSObin single-board computers that would connect to the MicroTik radio equipment.</p>
+
+<h3 id="local-network-installation-plan">Local Network Installation Plan</h3>
+
+<p>The plan for putting together this network looks something like this.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Date</th>
+      <th style="text-align: left">Milestone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Jun 8</td>
+      <td style="text-align: left">Communication infrastructure test at <em>The Farm</em></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Jun ?</td>
+      <td style="text-align: left">Meetup @ Internet Archive with a few nodes for application developers to do a test run</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Jul 1</td>
+      <td style="text-align: left">Power infrastructure in place</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Jul 8</td>
+      <td style="text-align: left">Meshnet core nodes and Internet connectivity in place</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Jul 15-17</td>
+      <td style="text-align: left">Volunteer build-out of structures and meshnet</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Jul 21-22</td>
+      <td style="text-align: left">Volunteer camp take-down</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Jul 18-21</td>
+      <td style="text-align: left"><strong>DWeb Camp</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In the following photo, you can see telephone poles that we can access with a lift. The plan is that we will book a lift around the July 8 date and install the first few nodes of the local network with a small group of volunteers that have experience setting up networks.</p>
+
+<p><img src="images/wide.jpg" alt="wide" /></p>
+
+<p>Then between July 15-17, we can involve more volunteers to connect areas such as this camp ground to the right of the large buildings in this photo.</p>
+
+<p><img src="images/camping.jpg" alt="camping" /></p>
+
+<p>In indoor spaces at the <em>Hacking Zone</em>, we can use the existing access points that serve the <em>Indoor AP</em> for wireless client connectivity, and add ethernet drops wired to the network switch at the mesh node at the building, where we expect groups gather and hack on projects. Raspberry Pis can be wired in from there to provide main services throughout the Camp, such as local Internet Archive content and a Matrix homeserver.</p>
+
+<p><img src="images/structures.jpg" alt="structures" /></p>
+
+<p>There are also interesting outdoor spaces like this ladder, where we can hang WiFi radios that are easy to access, and perhaps put a switch underneath for people to plug devices into, and see them federate with those devices plugged in at the indoor space.</p>
+
+<h3 id="power-availability">Power Availability</h3>
+
+<p>In our large outdoor areas, we’ll need to consider power for anything to work at all. While I was at The Farm, I saw power cables runs throughout main areas.</p>
+
+<p><img src="images/power.jpg" alt="power" /></p>
+
+<p>Joshua assured me that wired power would not be a problem in the spaces we plan to use for the Camp. Additionally, there are ongoing solar power projects at The Farm, and for the power needs of WiFi equipment, their solar-charged batteries can easily power mesh nodes with multiple radios if necessary. So even when it is unfeasible to run cables (e.g. the more remote relay tower for Internet backhaul), we can have a standalone solar-powered node.</p>
+
+<h3 id="mesh-network-software">Mesh Network Software</h3>
+
+<p>There were various discussions relating to what mesh software to run. The simplest is to run a big switch network, which is like a typical home network, just with more devices plugged in. This is simplest, and we shouldn’t run into scalability issues at our size. In large switch networks, broadcast traffic becomes significant, eating up precious wireless bandwidth and it is easy for individual clients to ruin it for everyone (e.g. having multiple DHCP servers). On the other hand, peer-to-peer applications that support local network peering (e.g. via broadcasts) will work beautifully. For example, you will see all Secure Scuttlebutt (SSB) clients on the local network without the need for <em>Pubs</em>. Although some community networks are indeed run as switch networks, this kind of feels like cheating in terms of testing our peer-to-peer applications, because this is generally not the type of networks we find in the real world. Most real world networks are networks of switch networks, having Layer 3 boundaries that broadcast messages do not pass through naturally, thus requiring bootstrap servers with public addresses a lot of times. So we intend to run a similar type of network using Babel, a Layer 3 mesh protocol, which present some of the challenges of real world networks (e.g. the Internet).</p>
+
+<h3 id="extras">Extras</h3>
+
+<p>In discussions with Jonah, we came up with some cool ideas, some of which Jonah had positive experience from his previous events:</p>
+
+<p><strong>A pair of Wireless Wire</strong>: This is a pair of wireless radios preconfigured to talk to each other. It forms a point-to-point network without need for configuration.</p>
+
+<p><strong>AP box (without client isolation)</strong>: This is simply a home Access Point that allow clients to broadcast messages, so peer-to-peer apps can easily discover other devices that joined the same SSID. Client devices (e.g. laptops and phones) can join wirelessly or plug into ethernet ports, and the device is battery powered, so we can take it anywhere to become a hub for a little local network.</p>
+
+<p>These are not very different from the nodes in the larger mesh network, but they are fun devices for groups to sign them out and use them in their project, or just tinker with them in an isolated environment.</p>
+
+
+				</div>
+			</main>
+		</div>
+		<script src="/meshnet/assets/js/zepto.min.js"></script>
+<script src="/meshnet/assets/js/lunar.min.js"></script>
+<script src="/meshnet/assets/js/prism.min.js"></script>
+<script src="/meshnet/assets/js/database.js"></script>
+<script src="/meshnet/assets/js/search.js"></script>
+<script src="/meshnet/assets/js/mobile-navigation.js"></script>
+
+	</body>
+</html>

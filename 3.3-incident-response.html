@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>3.3 Incident Response</title>
+  <meta name="description" content="Design, build, and stewardship of the participatory network">
+
+	<link rel="icon" href="/meshnet/assets/images/favicon.ico">
+  <link rel="canonical" href="https://dweb-camp-2019.github.io/meshnet/3.3-incident-response.html">
+
+	<link rel="stylesheet" href="/meshnet/assets/css/docs.css">
+
+</head>
+
+	<body>
+		<div class="wrapper">
+			<sidebar class="sidebar" id="sidebar">
+	<div class="sidebar-mobile">
+		<img src="/meshnet/assets/images/menu.svg" class="menu-icon" id="menu" />
+		<img src="/meshnet/assets/images/close.svg" class="close-icon" id="close" />
+	</div>
+	<div class="search">
+	<input type="text" class="search-input" id="search-input" placeholder="Type to search" />
+</div>
+
+	<div class="sidebar-main">
+		<ul class="navigation" id="navigation">																						<li>				<a class="" href="/meshnet/">					1.0 Project Overview				</a>			</li>								<li>				<a class="" href="/meshnet/2.0-network-design.html">					2.0 Network Design				</a>			</li>								<li>				<a class="" href="/meshnet/2.1-espressobin-router.html">					2.1 ESPRESSObin Router				</a>			</li>								<li>				<a class="" href="/meshnet/2.2-vlan-managed-switch.html">					2.2 VLAN Managed Switch				</a>			</li>								<li>				<a class="" href="/meshnet/2.3-point-to-point-mesh-radios.html">					2.3 Point-to-Point Mesh Radios				</a>			</li>								<li>				<a class="" href="/meshnet/2.4-access-point-radios.html">					2.4 Access Point Radios				</a>			</li>								<li>				<a class="" href="/meshnet/2.5-client-poe-switches.html">					2.5 Client PoE Switches				</a>			</li>								<li>				<a class="" href="/meshnet/3.0-social-experience.html">					3.0 Social Experience				</a>			</li>								<li>				<a class="" href="/meshnet/3.1-collaborative-planning.html">					3.1 Collaborative Planning				</a>			</li>								<li>				<a class="" href="/meshnet/3.2-network-stewards.html">					3.2 Network Stewards				</a>			</li>								<li>				<a class="active" href="/meshnet/3.3-incident-response.html">					3.3 Incident Response				</a>			</li>								<li>				<a class="" href="/meshnet/3.4-local-services.html">					3.4 Local Services				</a>			</li>								<li>				<a class="" href="/meshnet/3.5-retrospective.html">					3.5 Retrospective				</a>			</li>								<li>				<a class="" href="/meshnet/4.0-planning-notes.html">					4.0 Planning Notes				</a>			</li>								<li>				<a class="" href="/meshnet/4.1-client-device-roaming.html">					4.1 Client Device Roaming				</a>			</li>								<li>				<a class="" href="/meshnet/4.2-babel-wireguard-mesh.html">					4.2 Babel + WireGuard Mesh				</a>			</li>								<li>				<a class="" href="/meshnet/4.3-site-survey.html">					4.3 Site Survey				</a>			</li>								<li>				<a class="" href="/meshnet/4.4-planning-questions.html">					4.4 Planning Questions				</a>			</li>								<li>				<a class="" href="/meshnet/5.0-additional-resources.html">					5.0 Additional Resources				</a>			</li>								<li>				<a class="" href="/meshnet/5.1-application-testnet.html">					5.1 Application Testnet				</a>			</li>								<li>				<a class="" href="/meshnet/5.2-hardware-inventory.html">					5.2 Hardware Inventory				</a>			</li>								<li>				<a class="" href="/meshnet/5.3-graphic-assets.html">					5.3 Graphic Assets				</a>			</li>								<li>				<a class="" href="/meshnet/gallery/2019/">					5.4 Photo Gallery				</a>			</li>			</ul>
+
+		<ul id="search-results" class="navigation"></ul>
+
+	</div>
+</sidebar>
+
+			<main class="content">
+				<div class="inner">
+					<h2 id="33-incident-response">3.3 Incident Response</h2>
+
+<p>Although we discussed <a href="https://github.com/dweb-camp-2019/meshnet/issues/20">many ways to monitor the health of the network</a>, none of those were implemented due to capacity constraints. Our entire monitoring was basically <a href="https://packages.debian.org/stretch/bmon">bmon</a> and <a href="https://manpages.debian.org/stretch/oping/noping.8.en.html">noping</a> running on the <code>10.8.0.1</code> node at Mesh Hall displayed on a TV.</p>
+
+<p><img src="images/metrics.jpg" alt="metrics" /></p>
+
+<p>Here you can see terrible ping to <code>10.18.0.1</code>, which we can tell from the building map that the path to <code>18 Camp Lions Mane</code> needs some servicing.</p>
+
+<p><img src="images/network-physical-map.png" alt="network-physical-map" /></p>
+
+<p>Upon discovering these network issues, Network Stewards can SSH access the nodes and run different diagnostics such as <a href="https://packages.debian.org/stretch/iperf3">iperf3</a> to start debugging the problem.</p>
+
+<p>We’ve encountered temporary outages from a stopped truck blocking an antenna, switch failure, access point saturation, and other small incidents. In all these cases, Network Stewards that happened to notice the problem had them resolved usually rather quickly and often enlisting the help of other curious campers.</p>
+
+<p>Throughout the event, the network evolved organically. As people arrived, one of the nodes were saturated, and Seth added an extra access point radio in the night to handle the load. He also went with a group to swap out the Camp Lions Mane mesh link from a pair of 5 GHz SXTs to 60 GHz Wireless Wires. The registration desk was placed in an unanticipated location and the coverage was poor, so some Network Stewards convinced one of the kids from his VR headset to help rearrange the sector antennas on the <code>19 Powerhouse</code> solar node. It is important to emphasize that there was little central coordination of these initiatives to steward the network, and news of the network evolution mostly spread by word of mouth.</p>
+
+<p>Now we will discuss a couple interesting incidents that the Network Stewards encountered.</p>
+
+<h3 id="gigabit-link-speed-drops-to-100m">Gigabit Link Speed Drops To 100M</h3>
+
+<p>Here is the first report of the <a href="https://github.com/dweb-camp-2019/meshnet/issues/27">issue</a>:</p>
+
+<blockquote>
+  <p>These are wireless wire links normally talking at 800 Mbps, passing thru Netgear gigabit managed switch for VLAN tagging, and into espressobin. Some of these links fall to 94 Mbps (100M) speeds all of a sudden and stay there. Tested with different cat5e cables. Suspect this is related to the Netgear switch. Rebooting it or entire node doesn’t help. Same links have recorded 800+ Mbps.</p>
+</blockquote>
+
+<p>Early debug confirmed that the radios were communicating at full speed, but eventually the ethernet interface dropped to 100M, and this happened in the absence of a VLAN tagging switch in between. The primary suspicion was excessive heating of the ESPRESSObin internal switch, because one end of the particular link experiencing this issue was exposed to direct sunlight, and Benedict had observed that link to operate at full speed during one night. So before returning to Camp, Luandro repurposed some unused computer fans we found at Internet Archive for 5V (quiet) and 12V (powerful) cooling.</p>
+
+<p><img src="images/heat-sink.jpg" alt="heat-sink" /></p>
+
+<p>Upon arriving at Camp, one group of Network Stewards went off to install our hacked fans onto nodes that were running under direct sunlight. This unfortunately did not fix the problem. Ben E from People’s Open made it his personal mission to find out what was going on, and eventually narrowed it down to a poorly crimped ethernet cable. Of course :)</p>
+
+<p>We have unfortunately ruled out the possibility of a faulty ethernet cable before because every cable had been checked with the ethernet tester, and we have swapped different cables for this node during early debug. We have learned the symptoms of devices connected with partly-functioning ethernet cables, and to not fully trust the cable testers.</p>
+
+<p>In the end, this critical link between <code>2 Camp Enoki</code> and <code>11 Medical</code>, which we relied on to connect upper camp to the central areas, was returned to full gigabit speed.</p>
+
+<h3 id="rogue-dhcp-server">Rogue DHCP Server</h3>
+
+<p><code>8 Mesh Hall</code> was the main area where project demos and other network-heavy activities were gathered. At one point, many people started losing Internet access from there even though their devices were connected to the access point. We, a group of Network Stewards, discovered that their devices were assigned an IP address that we did not expect, but… by who?</p>
+
+<p>We discovered that these devices were indeed connected to our access point, not one that was broadcasting the same SSID and pretending to be the DWeb Camp network. This means we had a device connected to our network acting as a second DHCP server, and they were able to hand out IP addresses in their range faster than our mesh node could. We identified the device’s MAC address and started speculating on its intent, concluding that it was potentially malicious because it was also running a DNS server, so it could redirect traffic to connected clients. We believed it was a wirelessly connected Raspberry Pi based on our information gathering, so it could be connected to a battery in a backpack and out of sight.</p>
+
+<p><img src="images/static-ip.jpg" alt="static-ip" /></p>
+
+<p>We tried to blacklist the MAC from the MikroTik radios, meanwhile leaving a message on the board asking people to set a static IP address on their device to avoid DHCP altogether. After spending many hours in the night, we thought we got the blacklist feature to work, but only to discover the device was connected again in the morning. This became a morning conversation for the people involved in the detective work, and when Dietrich heard about the incident, he thought of a suspicious Raspberry Pi.</p>
+
+<p><img src="images/rogue-dhcp.jpg" alt="rogue-dhcp" /></p>
+
+<p>It turned out there was a Raspberry Pi that had a Mozilla IoT WebThings Gateway image installed, and was passed off to Why for reconfiguring to connect to the wireless network, without realizing it was running a DHCP server 😭</p>
+
+<p>Upon investigating, this IoT gateway not only had a DHCP server running on the wireless interface, but it was running with <em>dhcp-authoritative</em> mode, which effectively overrides existing DHCP leases for clients! The device also disabled SSH on all interfaces and had no web UI, making it look especially like an intentionally malicious node 😅 We eventually discussed this interesting incident with Mozilla IoT and you can see the thread <a href="https://github.com/mozilla-iot/gateway/issues/2038">here</a>.</p>
+
+<p>The takeaway is, we are glad we ran a routed network rather than a switch network, because otherwise this Raspberry Pi would have affected the entire network, not just the ones connected to the <code>10.8.0.1</code> node at Mesh Hall. We also need to figure out how to ban devices for the future.</p>
+
+<h3 id="standing-issues">Standing Issues</h3>
+
+<p><a href="https://github.com/dweb-camp-2019/meshnet/issues/28">SD card corruption on poweroff without shutdown</a> is a common problem with single-board computers. Using a ramdisk system and minimizing SD card writes would help, but for the things we intend to do on the ESPRESSObin routers, we may need more RAM than available.</p>
+
+<p>The ESPRESSObin have had other SD card problems because of its design. The spring-loaded SD card slot often gets accidentally pressed on when plugging cables, leaving the SD card ejected in the slot. Sometimes Network Stewards would swap a cable, accidentally popping the SD card of a running node, and the node becomes partly functional and failing during seemingly random operations, because the node still responds to pings and can perform basic operations as the OS is running in memory even while the SD card is ejected. However, when trying to perform an operation that requires loading data from the SD card that is not cached in RAM, we get strange failures.</p>
+
+<p><a href="https://github.com/dweb-camp-2019/meshnet/issues/26">Mesh links formed by wireless wires iperf3 asymmetric speeds</a> still remains a mystery.</p>
+
+
+				</div>
+			</main>
+		</div>
+		<script src="/meshnet/assets/js/zepto.min.js"></script>
+<script src="/meshnet/assets/js/lunar.min.js"></script>
+<script src="/meshnet/assets/js/prism.min.js"></script>
+<script src="/meshnet/assets/js/database.js"></script>
+<script src="/meshnet/assets/js/search.js"></script>
+<script src="/meshnet/assets/js/mobile-navigation.js"></script>
+
+	</body>
+</html>

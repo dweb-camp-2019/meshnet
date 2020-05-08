@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>2.3 Point-to-Point Mesh Radios</title>
+  <meta name="description" content="Design, build, and stewardship of the participatory network">
+
+	<link rel="icon" href="/meshnet/assets/images/favicon.ico">
+  <link rel="canonical" href="https://dweb-camp-2019.github.io/meshnet/2.3-point-to-point-mesh-radios.html">
+
+	<link rel="stylesheet" href="/meshnet/assets/css/docs.css">
+
+</head>
+
+	<body>
+		<div class="wrapper">
+			<sidebar class="sidebar" id="sidebar">
+	<div class="sidebar-mobile">
+		<img src="/meshnet/assets/images/menu.svg" class="menu-icon" id="menu" />
+		<img src="/meshnet/assets/images/close.svg" class="close-icon" id="close" />
+	</div>
+	<div class="search">
+	<input type="text" class="search-input" id="search-input" placeholder="Type to search" />
+</div>
+
+	<div class="sidebar-main">
+		<ul class="navigation" id="navigation">																						<li>				<a class="" href="/meshnet/">					1.0 Project Overview				</a>			</li>								<li>				<a class="" href="/meshnet/2.0-network-design.html">					2.0 Network Design				</a>			</li>								<li>				<a class="" href="/meshnet/2.1-espressobin-router.html">					2.1 ESPRESSObin Router				</a>			</li>								<li>				<a class="" href="/meshnet/2.2-vlan-managed-switch.html">					2.2 VLAN Managed Switch				</a>			</li>								<li>				<a class="active" href="/meshnet/2.3-point-to-point-mesh-radios.html">					2.3 Point-to-Point Mesh Radios				</a>			</li>								<li>				<a class="" href="/meshnet/2.4-access-point-radios.html">					2.4 Access Point Radios				</a>			</li>								<li>				<a class="" href="/meshnet/2.5-client-poe-switches.html">					2.5 Client PoE Switches				</a>			</li>								<li>				<a class="" href="/meshnet/3.0-social-experience.html">					3.0 Social Experience				</a>			</li>								<li>				<a class="" href="/meshnet/3.1-collaborative-planning.html">					3.1 Collaborative Planning				</a>			</li>								<li>				<a class="" href="/meshnet/3.2-network-stewards.html">					3.2 Network Stewards				</a>			</li>								<li>				<a class="" href="/meshnet/3.3-incident-response.html">					3.3 Incident Response				</a>			</li>								<li>				<a class="" href="/meshnet/3.4-local-services.html">					3.4 Local Services				</a>			</li>								<li>				<a class="" href="/meshnet/3.5-retrospective.html">					3.5 Retrospective				</a>			</li>								<li>				<a class="" href="/meshnet/4.0-planning-notes.html">					4.0 Planning Notes				</a>			</li>								<li>				<a class="" href="/meshnet/4.1-client-device-roaming.html">					4.1 Client Device Roaming				</a>			</li>								<li>				<a class="" href="/meshnet/4.2-babel-wireguard-mesh.html">					4.2 Babel + WireGuard Mesh				</a>			</li>								<li>				<a class="" href="/meshnet/4.3-site-survey.html">					4.3 Site Survey				</a>			</li>								<li>				<a class="" href="/meshnet/4.4-planning-questions.html">					4.4 Planning Questions				</a>			</li>								<li>				<a class="" href="/meshnet/5.0-additional-resources.html">					5.0 Additional Resources				</a>			</li>								<li>				<a class="" href="/meshnet/5.1-application-testnet.html">					5.1 Application Testnet				</a>			</li>								<li>				<a class="" href="/meshnet/5.2-hardware-inventory.html">					5.2 Hardware Inventory				</a>			</li>								<li>				<a class="" href="/meshnet/5.3-graphic-assets.html">					5.3 Graphic Assets				</a>			</li>								<li>				<a class="" href="/meshnet/gallery/2019/">					5.4 Photo Gallery				</a>			</li>			</ul>
+
+		<ul id="search-results" class="navigation"></ul>
+
+	</div>
+</sidebar>
+
+			<main class="content">
+				<div class="inner">
+					<h2 id="23-point-to-point-mesh-radios">2.3 Point-to-Point Mesh Radios</h2>
+
+<p>Directional radios that make a point-to-point link are put into bridge mode to serve as a wireless replacement of an ethernet cable. These high gain radios need to be aligned carefully to be pointed at one another within about 20 degrees to get optimal speeds.</p>
+
+<p><img src="images/mesh-radio.jpg" alt="mesh-radio" /></p>
+
+<h3 id="mikrotik-sxtsq-5-ac-5-ghz">MikroTik SXTsq 5 ac (5 GHz)</h3>
+
+<ol>
+  <li>
+    <p>Download the latest release of <a href="https://mikrotik.com/product/sxtsq_5_ac">RouterOS for the SXTsq 5 ac</a> (<code>v6.44.3 (stable)</code> is the version used)</p>
+  </li>
+  <li>
+    <p>Connect your computer to the ethernet port of the MikroTik device and configure the static IP <code>192.168.88.100</code> on the local network interface</p>
+  </li>
+  <li>
+    <p>Connect to <code>192.168.88.1</code> and login to the web interface as <code>admin</code> without password, upload the <code>.npk</code> file and reboot the device, then verify RouterOS is upgraded to the latest</p>
+  </li>
+  <li>
+    <p>SSH into the device with <code>ssh admin@192.168.88.1</code></p>
+  </li>
+  <li>
+    <p>Ensure the device has fresh configurations, run <code>/system reset-configuration</code> if needed</p>
+  </li>
+  <li>
+    <p>Run <a href="https://github.com/dweb-camp-2019/meshnet/blob/master/prodnet/sxtsq/sxtsq-ap.rsc">sxtsq/sxtsq-ap.rsc</a></p>
+  </li>
+  <li>
+    <p>Reboot the device with <code>/system reboot</code> and it will acquire the new IP address <code>192.168.88.2</code></p>
+  </li>
+  <li>
+    <p>Repeat the above steps for the second (client) device, then run <a href="https://github.com/dweb-camp-2019/meshnet/blob/master/prodnet/sxtsq/sxtsq-client.rsc">sxtsq/sxtsq-client.rsc</a>, and it will acquire the new IP address <code>192.168.88.3</code> after reboot</p>
+  </li>
+</ol>
+
+<h3 id="mikrotik-wireless-wire-60-ghz">MikroTik Wireless Wire (60 GHz)</h3>
+
+<p>These are pre-configured devices that operate at 60 GHz to form a gigabit wireless link at distances ~100 m. They send and receive between 700-900 Mbps even when alignment is a little off and have LEDs to indicate link quality. The pair has management IP addresses of <code>192.168.88.2</code> and <code>192.168.88.3</code>, when can be accessed via the ESPRESSObin via SSH as <code>admin</code> user, but this usually isn’t necessary as they should “just work” as if it is an actual ethernet cable.</p>
+
+<h3 id="ethernet-cable">Ethernet Cable</h3>
+
+<p>If distances allow, you can just use an ethernet cable to link two nodes. Remember the maximum distance for ethernet cables to work reliably is 100 m. Make sure to use reliable cables, as a lot of issues have been due to faulty cables of unknown origin or poorly crimped connectors. These issues are often not picked up by ethernet cable testers.</p>
+
+
+
+				</div>
+			</main>
+		</div>
+		<script src="/meshnet/assets/js/zepto.min.js"></script>
+<script src="/meshnet/assets/js/lunar.min.js"></script>
+<script src="/meshnet/assets/js/prism.min.js"></script>
+<script src="/meshnet/assets/js/database.js"></script>
+<script src="/meshnet/assets/js/search.js"></script>
+<script src="/meshnet/assets/js/mobile-navigation.js"></script>
+
+	</body>
+</html>

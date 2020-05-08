@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>5.1 Application Testnet</title>
+  <meta name="description" content="Design, build, and stewardship of the participatory network">
+
+	<link rel="icon" href="/meshnet/assets/images/favicon.ico">
+  <link rel="canonical" href="https://dweb-camp-2019.github.io/meshnet/5.1-application-testnet.html">
+
+	<link rel="stylesheet" href="/meshnet/assets/css/docs.css">
+
+</head>
+
+	<body>
+		<div class="wrapper">
+			<sidebar class="sidebar" id="sidebar">
+	<div class="sidebar-mobile">
+		<img src="/meshnet/assets/images/menu.svg" class="menu-icon" id="menu" />
+		<img src="/meshnet/assets/images/close.svg" class="close-icon" id="close" />
+	</div>
+	<div class="search">
+	<input type="text" class="search-input" id="search-input" placeholder="Type to search" />
+</div>
+
+	<div class="sidebar-main">
+		<ul class="navigation" id="navigation">																						<li>				<a class="" href="/meshnet/">					1.0 Project Overview				</a>			</li>								<li>				<a class="" href="/meshnet/2.0-network-design.html">					2.0 Network Design				</a>			</li>								<li>				<a class="" href="/meshnet/2.1-espressobin-router.html">					2.1 ESPRESSObin Router				</a>			</li>								<li>				<a class="" href="/meshnet/2.2-vlan-managed-switch.html">					2.2 VLAN Managed Switch				</a>			</li>								<li>				<a class="" href="/meshnet/2.3-point-to-point-mesh-radios.html">					2.3 Point-to-Point Mesh Radios				</a>			</li>								<li>				<a class="" href="/meshnet/2.4-access-point-radios.html">					2.4 Access Point Radios				</a>			</li>								<li>				<a class="" href="/meshnet/2.5-client-poe-switches.html">					2.5 Client PoE Switches				</a>			</li>								<li>				<a class="" href="/meshnet/3.0-social-experience.html">					3.0 Social Experience				</a>			</li>								<li>				<a class="" href="/meshnet/3.1-collaborative-planning.html">					3.1 Collaborative Planning				</a>			</li>								<li>				<a class="" href="/meshnet/3.2-network-stewards.html">					3.2 Network Stewards				</a>			</li>								<li>				<a class="" href="/meshnet/3.3-incident-response.html">					3.3 Incident Response				</a>			</li>								<li>				<a class="" href="/meshnet/3.4-local-services.html">					3.4 Local Services				</a>			</li>								<li>				<a class="" href="/meshnet/3.5-retrospective.html">					3.5 Retrospective				</a>			</li>								<li>				<a class="" href="/meshnet/4.0-planning-notes.html">					4.0 Planning Notes				</a>			</li>								<li>				<a class="" href="/meshnet/4.1-client-device-roaming.html">					4.1 Client Device Roaming				</a>			</li>								<li>				<a class="" href="/meshnet/4.2-babel-wireguard-mesh.html">					4.2 Babel + WireGuard Mesh				</a>			</li>								<li>				<a class="" href="/meshnet/4.3-site-survey.html">					4.3 Site Survey				</a>			</li>								<li>				<a class="" href="/meshnet/4.4-planning-questions.html">					4.4 Planning Questions				</a>			</li>								<li>				<a class="" href="/meshnet/5.0-additional-resources.html">					5.0 Additional Resources				</a>			</li>								<li>				<a class="active" href="/meshnet/5.1-application-testnet.html">					5.1 Application Testnet				</a>			</li>								<li>				<a class="" href="/meshnet/5.2-hardware-inventory.html">					5.2 Hardware Inventory				</a>			</li>								<li>				<a class="" href="/meshnet/5.3-graphic-assets.html">					5.3 Graphic Assets				</a>			</li>								<li>				<a class="" href="/meshnet/gallery/2019/">					5.4 Photo Gallery				</a>			</li>			</ul>
+
+		<ul id="search-results" class="navigation"></ul>
+
+	</div>
+</sidebar>
+
+			<main class="content">
+				<div class="inner">
+					<h2 id="51-application-testnet">5.1 Application Testnet</h2>
+
+<p>This uses two Raspberry Pi 3B or 3B+ to emulate the network environment from the perspective of a device plugged into the local mesh network.</p>
+
+<p><img src="images/testnet.jpg" alt="testnet" /></p>
+
+<p>After running the installation script and when you power the Raspberry Pi back on, it will use its wireless interface to mesh with another similarly configured Raspberry Pi, and any device plugged into the ethernet port will receive an IP address in the <code>10.[random].0.0/16</code> subnet. Your device will behave as if it is plugged into the DWeb Camp network, assigned an IP address unique within the local network and reachable by any device connected to the network because Babel is redistributing routes to all devices. It is probably a good idea to unplug the Raspberry Pi from your home router before powering on to avoid having two DHCP servers on your home network.</p>
+
+<h3 id="installation">Installation</h3>
+
+<p>You will need two Raspberry Pi 3B or 3B+ with SD cards, and probably ethernet cables to connect devices (e.g. laptops) to the Raspberry Pi local network.</p>
+
+<ol>
+  <li>
+    <p>Flash the SD card with <a href="https://www.raspberrypi.org/downloads/raspbian/">Raspbian Buster Lite</a>.</p>
+  </li>
+  <li>
+    <p>Create an empty file named <strong>ssh</strong> to enable SSH when the Pi boots:</p>
+
+    <pre><code> $ touch /path/to/sd/boot/ssh
+</code></pre>
+  </li>
+  <li>
+    <p>Plug the SD card into the Pi.</p>
+  </li>
+  <li>
+    <p>Plug the Pi into your router so it has connectivity to the Internet. SSH into the Pi with <code>ssh pi@raspberrypi.local</code> and password <strong>raspberry</strong>.</p>
+
+    <p><strong>Optional:</strong> There are other ways to connect, such as connecting the Pi to your computer and sharing Internet to it. If you have multiple Pi’s connected to your router, find th
+eir IPs with <code>nmap -sn 192.168.X.0/24</code> (where 192.168.X is your subnet) and SSH to the local IP assigned to the Pi you want to address <code>ssh pi@192.168.X.Y</code>.</p>
+  </li>
+  <li>
+    <p>Run the following, then let the installation complete. After installtion the Pi will power off:</p>
+
+    <pre><code> $ wget https://raw.githubusercontent.com/dweb-camp-2019/meshnet/master/testnet/install &amp;&amp; chmod +x install &amp;&amp; ./install
+</code></pre>
+  </li>
+</ol>
+
+<h3 id="network-topology">Network Topology</h3>
+
+<p>This network has two Raspberry Pis (<code>B</code> and <code>C</code>) connected together running as Babel routers.
+Laptops (<code>A</code> and <code>B</code>) or any other client with an ethernet port can connect through the Raspberry Pi ethernet port <code>eth0</code> and be assigned an IP address.
+The two Raspberry Pi themselves use the on-board WiFi in ad-hoc mode to wirelessles connect with each other.</p>
+
+<pre><code>    +------------------+        +-------------------------------+         +-------------------------------+        +------------------+
+    | A: Laptop client |        | B: Raspberry Pi babel router  |         | C: Raspberry Pi babel router  |        | D: Laptop client |
+    | 10.131.225.234   +--------+ eth0:  10.131.0.1 assigns /16 + - - - - + eth0:  10.201.0.1 assigns /16 +--------+ 10.201.30.107    |
+    | assigned by B    |  eth0  | wlan0: 192.168.133.131 in /24 |  wlan0  | wlan0: 192.168.133.201 in /24 |  eth0  | assigned by C    |
+    +------------------+        +-------------------------------+         +-------------------------------+        +------------------+
+</code></pre>
+
+<p>The Babel routers are configured to announce their client subnets, so all devices are visible to one another and the IP addresses can be treated as public IP addresses.
+In this example:</p>
+
+<ul>
+  <li>A: 10.131.225.234</li>
+  <li>B: 10.131.0.1</li>
+  <li>C: 10.201.0.1</li>
+  <li>D: 10.201.30.107</li>
+</ul>
+
+<p>This means even though clients <code>A</code> and <code>D</code> themselves do not run Babel, all the devices can ping each other on these IP addresses.
+If you are running an application on a computer, server, single-board computer, phone, or any other device, this is the IP address that other people on the local mesh network can reach you at.
+In this Raspberry Pi model of the network, you can see that <code>A</code> and <code>D</code> can send and receive from one another through the chain at about 33 Mbps, limited by the wireless <code>wlan0</code> link:</p>
+
+<pre><code>$ iperf3 -c 10.201.30.107                                                                                                                                                                                                                                                                                                                             ⏎
+Connecting to host 10.201.30.107, port 5201
+[  5] local 10.131.225.234 port 57472 connected to 10.201.30.107 port 5201
+[ ID] Interval           Transfer     Bitrate
+[  5]   0.00-1.00   sec  4.98 MBytes  41.8 Mbits/sec
+[  5]   1.00-2.00   sec  3.93 MBytes  33.0 Mbits/sec
+[  5]   2.00-3.00   sec  3.60 MBytes  30.2 Mbits/sec
+[  5]   3.00-4.00   sec  3.84 MBytes  32.2 Mbits/sec
+[  5]   4.00-5.00   sec  3.93 MBytes  33.0 Mbits/sec
+[  5]   5.00-6.00   sec  3.96 MBytes  33.2 Mbits/sec
+[  5]   6.00-7.00   sec  3.84 MBytes  32.2 Mbits/sec
+[  5]   7.00-8.00   sec  3.91 MBytes  32.8 Mbits/sec
+[  5]   8.00-9.00   sec  4.07 MBytes  34.2 Mbits/sec
+[  5]   9.00-10.00  sec  4.05 MBytes  34.0 Mbits/sec
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate
+[  5]   0.00-10.00  sec  40.1 MBytes  33.7 Mbits/sec                  sender
+[  5]   0.00-10.00  sec  40.1 MBytes  33.7 Mbits/sec                  receiver
+
+iperf Done.
+
+$ iperf3 -c 10.201.30.107 -R
+Connecting to host 10.201.30.107, port 5201
+Reverse mode, remote host 10.201.30.107 is sending
+[  5] local 10.131.225.234 port 57475 connected to 10.201.30.107 port 5201
+[ ID] Interval           Transfer     Bitrate
+[  5]   0.00-1.00   sec  3.79 MBytes  31.8 Mbits/sec
+[  5]   1.00-2.00   sec  3.95 MBytes  33.1 Mbits/sec
+[  5]   2.00-3.00   sec  3.34 MBytes  28.0 Mbits/sec
+[  5]   3.00-4.00   sec  3.88 MBytes  32.5 Mbits/sec
+[  5]   4.00-5.00   sec  3.89 MBytes  32.6 Mbits/sec
+[  5]   5.00-6.00   sec  3.89 MBytes  32.6 Mbits/sec
+[  5]   6.00-7.00   sec  3.98 MBytes  33.4 Mbits/sec
+[  5]   7.00-8.00   sec  4.00 MBytes  33.5 Mbits/sec
+[  5]   8.00-9.00   sec  3.98 MBytes  33.4 Mbits/sec
+[  5]   9.00-10.00  sec  3.89 MBytes  32.6 Mbits/sec
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Retr
+[  5]   0.00-10.00  sec  39.9 MBytes  33.4 Mbits/sec    0             sender
+[  5]   0.00-10.00  sec  39.6 MBytes  33.2 Mbits/sec                  receiver
+
+iperf Done.
+</code></pre>
+
+<p>The actual network at DWeb Camp will have much more bandwidth, and at much larger distances with more hops, but this model should emulate the environment for you to test applications running on clients <code>A</code> and <code>D</code>.</p>
+
+
+
+				</div>
+			</main>
+		</div>
+		<script src="/meshnet/assets/js/zepto.min.js"></script>
+<script src="/meshnet/assets/js/lunar.min.js"></script>
+<script src="/meshnet/assets/js/prism.min.js"></script>
+<script src="/meshnet/assets/js/database.js"></script>
+<script src="/meshnet/assets/js/search.js"></script>
+<script src="/meshnet/assets/js/mobile-navigation.js"></script>
+
+	</body>
+</html>

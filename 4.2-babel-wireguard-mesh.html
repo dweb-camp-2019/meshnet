@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>4.2 Babel + WireGuard Mesh</title>
+  <meta name="description" content="Design, build, and stewardship of the participatory network">
+
+	<link rel="icon" href="/meshnet/assets/images/favicon.ico">
+  <link rel="canonical" href="https://dweb-camp-2019.github.io/meshnet/4.2-babel-wireguard-mesh.html">
+
+	<link rel="stylesheet" href="/meshnet/assets/css/docs.css">
+
+</head>
+
+	<body>
+		<div class="wrapper">
+			<sidebar class="sidebar" id="sidebar">
+	<div class="sidebar-mobile">
+		<img src="/meshnet/assets/images/menu.svg" class="menu-icon" id="menu" />
+		<img src="/meshnet/assets/images/close.svg" class="close-icon" id="close" />
+	</div>
+	<div class="search">
+	<input type="text" class="search-input" id="search-input" placeholder="Type to search" />
+</div>
+
+	<div class="sidebar-main">
+		<ul class="navigation" id="navigation">																						<li>				<a class="" href="/meshnet/">					1.0 Project Overview				</a>			</li>								<li>				<a class="" href="/meshnet/2.0-network-design.html">					2.0 Network Design				</a>			</li>								<li>				<a class="" href="/meshnet/2.1-espressobin-router.html">					2.1 ESPRESSObin Router				</a>			</li>								<li>				<a class="" href="/meshnet/2.2-vlan-managed-switch.html">					2.2 VLAN Managed Switch				</a>			</li>								<li>				<a class="" href="/meshnet/2.3-point-to-point-mesh-radios.html">					2.3 Point-to-Point Mesh Radios				</a>			</li>								<li>				<a class="" href="/meshnet/2.4-access-point-radios.html">					2.4 Access Point Radios				</a>			</li>								<li>				<a class="" href="/meshnet/2.5-client-poe-switches.html">					2.5 Client PoE Switches				</a>			</li>								<li>				<a class="" href="/meshnet/3.0-social-experience.html">					3.0 Social Experience				</a>			</li>								<li>				<a class="" href="/meshnet/3.1-collaborative-planning.html">					3.1 Collaborative Planning				</a>			</li>								<li>				<a class="" href="/meshnet/3.2-network-stewards.html">					3.2 Network Stewards				</a>			</li>								<li>				<a class="" href="/meshnet/3.3-incident-response.html">					3.3 Incident Response				</a>			</li>								<li>				<a class="" href="/meshnet/3.4-local-services.html">					3.4 Local Services				</a>			</li>								<li>				<a class="" href="/meshnet/3.5-retrospective.html">					3.5 Retrospective				</a>			</li>								<li>				<a class="" href="/meshnet/4.0-planning-notes.html">					4.0 Planning Notes				</a>			</li>								<li>				<a class="" href="/meshnet/4.1-client-device-roaming.html">					4.1 Client Device Roaming				</a>			</li>								<li>				<a class="active" href="/meshnet/4.2-babel-wireguard-mesh.html">					4.2 Babel + WireGuard Mesh				</a>			</li>								<li>				<a class="" href="/meshnet/4.3-site-survey.html">					4.3 Site Survey				</a>			</li>								<li>				<a class="" href="/meshnet/4.4-planning-questions.html">					4.4 Planning Questions				</a>			</li>								<li>				<a class="" href="/meshnet/5.0-additional-resources.html">					5.0 Additional Resources				</a>			</li>								<li>				<a class="" href="/meshnet/5.1-application-testnet.html">					5.1 Application Testnet				</a>			</li>								<li>				<a class="" href="/meshnet/5.2-hardware-inventory.html">					5.2 Hardware Inventory				</a>			</li>								<li>				<a class="" href="/meshnet/5.3-graphic-assets.html">					5.3 Graphic Assets				</a>			</li>								<li>				<a class="" href="/meshnet/gallery/2019/">					5.4 Photo Gallery				</a>			</li>			</ul>
+
+		<ul id="search-results" class="navigation"></ul>
+
+	</div>
+</sidebar>
+
+			<main class="content">
+				<div class="inner">
+					<h2 id="42-babel--wireguard-mesh">4.2 Babel + WireGuard Mesh</h2>
+
+<h3 id="summary">Summary</h3>
+
+<ul>
+  <li>Should be able to set up Babel + WireGuard on ClearFog Pro running Armbian</li>
+  <li>Installing Babel
+    <ul>
+      <li>Clone git://github.com/jech/babeld.git and cross-build for ARM</li>
+      <li>Assign an IPv6 address for each router in fd00::/8
+        <pre><code>sudo ip addr add &lt;some ipv6 address&gt; dev &lt;eth interface&gt;
+... repeat for more interfaces
+babeld &lt;your arguments and tunings shouldn't need any&gt; eth0 eth1... etc
+</code></pre>
+      </li>
+      <li>Babel with IPv4 is full of gotchas</li>
+    </ul>
+  </li>
+  <li>Installing WireGuard
+    <ul>
+      <li>Need to be built as a kernel module which requires Armbian sources</li>
+      <li>Use for end-to-end encryption between nodes</li>
+      <li>Expect 400-800 Mbps on ClearFog Pro</li>
+    </ul>
+  </li>
+  <li>Local services (both solutions discusses are non-ideal, need further discussions)
+    <ul>
+      <li>Set up iptables to NAT IPv4 and client devices over the exit so Babel only deals in IPv6</li>
+      <li>Provide a default IPv6 route that allows accessing mesh devices</li>
+    </ul>
+  </li>
+  <li>Internet gateways
+    <ul>
+      <li>Exits are a list of keys that it would deploy a WireGuard tunnel for</li>
+      <li>Client nodes need to have keys to exit nodes manually added</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="chat-logs-from-matrixaltheamatrixorg">Chat logs from <code>matrix/#althea:matrix.org</code></h3>
+
+<p>Mar, 2019</p>
+
+<blockquote>
+  <p>ttk2 (@_discord_267031307945508864:t2bot.io)<br />
+The GL is the best price/performance/availability ratio. You can run an exit in a pi locally but the issue then will be adding it to all the other routers (exits are added out of band as a key exchange mechanism) there’s a curl command trick for that though.</p>
+</blockquote>
+
+<blockquote>
+  <p>benhylau<br />
+Hi ttk2, can I run Babel + wireguard (node to node or e2e?) without payment daemon?</p>
+</blockquote>
+
+<blockquote>
+  <p>ttk2 (@ttk2:matrix.org)<br />
+sure it’s not particularly difficult.<br />
+do you want an openwrt firmware for that or?<br />
+you can do it with a script too</p>
+</blockquote>
+
+<blockquote>
+  <p>benhylau<br />
+So I am thinking about Armbian base, it’s the set up I linked above I am trying to prototype</p>
+</blockquote>
+
+<blockquote>
+  <p>ttk2 (@ttk2:matrix.org)<br />
+you just need to make sure every router gets a fd ipv6 address, as a note babel with ipv4 is full of gotchas while ipv6 ‘just works’ if you assign any non link local address to the router.<br />
+benhylau: so you need to run this two line script on startup</p>
+  <pre><code>sudo ip addr add &lt;some ipv6 address&gt; dev &lt;eth interface&gt;
+... repeat for more interfaces
+babeld &lt;your arguments and tunings shouldn't need any&gt; eth0 eth1... etc
+</code></pre>
+  <p>and your done<br />
+darn messed up block code formatting</p>
+</blockquote>
+
+<blockquote>
+  <p>benhylau<br />
+So I want to peer the MicroTiks with stock firmware, then on the clearfog run Babel + wireguard, and connect an AP to each. If these work (and we are sure to go ahead with this routing protocol) I may mix some leaf nodes with the GL for lower cost</p>
+</blockquote>
+
+<blockquote>
+  <p>ttk2 (@ttk2:matrix.org)<br />
+shouldn’t be an issue, babel has almost no dependencies so an arm binary should work on anything with the same architecture running linux<br />
+should just be able to copy it over and then make an init script.</p>
+</blockquote>
+
+<blockquote>
+  <p>benhylau<br />
+So what do I install in this case? Not the openwrt package</p>
+</blockquote>
+
+<blockquote>
+  <p>ttk2 (@ttk2:matrix.org)<br />
+you wouldn’t install anything, you would clone babel then cross build it<br />
+here’s a script that takes all the build artifects from openwrt and uses them to easily and quickly let you cross build rust<br />
+https://github.com/althea-mesh/althea_rs/blob/master/scripts/openwrt_build_mips.sh<br />
+just change the env varaibles to CC and LD instead of target_cc (which is a rust thing) then run gcc to build babel<br />
+git clone git://github.com/jech/babeld.git<br />
+then just copy the binary to /bin/ on the other side<br />
+I mean as far as engineering a mesh firmware goes this is as simple as it gets :P</p>
+</blockquote>
+
+<blockquote>
+  <p>benhylau<br />
+Wow thanks, how is jech different from https://github.com/althea-mesh/babeld</p>
+</blockquote>
+
+<blockquote>
+  <p>ttk2 (@ttk2:matrix.org)<br />
+we’ve got our price extension, full path rtt extension and are otherwise a few commits behind, we need to rebase every so often.<br />
+our price extension is currently too messy to merge upstream although we have a neater version of it designed it hans’t been implemented yet.</p>
+</blockquote>
+
+<blockquote>
+  <p>benhylau<br />
+AHH ok, and wireguard is in which?</p>
+</blockquote>
+
+<blockquote>
+  <p>ttk2 (@ttk2:matrix.org)<br />
+well wireguard might be a little harder, since you’ll need to build it as a kernel module, you’d need the micotik kernel sources<br />
+which they should release under the gpl… but you never know.</p>
+</blockquote>
+
+<blockquote>
+  <p>benhylau<br />
+Clearfog pro, that’s what runs the wireguard and routing, tiks will be stock</p>
+</blockquote>
+
+<blockquote>
+  <p>ttk2 (@ttk2:matrix.org)<br />
+essentially you would need to find their kernel sources, clone wireguard, setup wireguard to cross build the kernel module, copy it over and then load it. More involved than babel for sure since kernel modules are highly dependent on having the exact source tree of the kernel<br />
+well for armbian it won’t be an issue, their kernel sources are public<br />
+https://forum.openwrt.org/t/mikrotik-gpl-source/6750</p>
+</blockquote>
+
+<blockquote>
+  <p>benhylau<br />
+Yea it should run Armbian…<br />
+Do you guys run wireguard for node to node or e2e?</p>
+</blockquote>
+
+<blockquote>
+  <p>ttk2 (@ttk2:matrix.org)<br />
+depending on the kernel version of your device versus the last time they updated their gpl sources you may be SOL on the micotik<br />
+both, we nest wireguard<br />
+(yes it be like that)<br />
+we could probable remove node to node and assume links are isolated and secured, but you know unmanaged switches exist.<br />
+and so do sector antennas without client isolation enabled</p>
+</blockquote>
+
+<blockquote>
+  <p>benhylau<br />
+I don’t expect to flash the tiks anyway, I think wireless equipment it’s better to leave them as is, mess with the router board all we want :)</p>
+</blockquote>
+
+<blockquote>
+  <p>ttk2 (@ttk2:matrix.org)<br />
+so we chose the 15-20% perf hit for security by default
+and so do sector antennas without client isolation enabled</p>
+</blockquote>
+
+<blockquote>
+  <p>benhylau<br />
+Hmm how does node to node help with this?<br />
+Because same node, it won’t encrypt at all?</p>
+</blockquote>
+
+<blockquote>
+  <p>ttk2 (@ttk2:matrix.org)<br />
+benhylau: so sector antennas act like unmanaged switches, meaning all nodes have the same broadcast domain, so nodes A, B, and C are on the same ‘wire’ and B could send packets with ‘A’ in the from field and get C billed for them.<br />
+wireguard does authentication and encrypiton, we don’t need the latter really but it’s faster than any auth only altnerative at the moment so 🤷</p>
+</blockquote>
+
+<blockquote>
+  <p>benhylau<br />
+Heh wow, what speeds can you get from one of those little GL processors?</p>
+</blockquote>
+
+<blockquote>
+  <p>ttk2 (@ttk2:matrix.org)<br />
+not much of an issue with you guys, you can do the (much easier) end to end wireguard only<br />
+100mbit without anything else getting in the way.<br />
+it’s actually mostly iptables overhead not the actual wireguard encryption, they have a hand tuned assembly arm encryption implementation, it uses the vector extension to great effect.</p>
+</blockquote>
+
+<blockquote>
+  <p>benhylau<br />
+The clearfog has a 1.6G ARM, do you think it can saturate a 800 Mbps radio?</p>
+</blockquote>
+
+<blockquote>
+  <p>ttk2 (@ttk2:matrix.org)<br />
+I’ve tested similar processors, it’s highly dependent on the memory, but I’ve seen 400-600ish let me know what you see<br />
+so not quite, but pretty close.<br />
+well 400-600 with two tunnels… yeha you can probably push to 800</p>
+</blockquote>
+
+<blockquote>
+  <p>benhylau<br />
+Okay I am gonna give them a call today, see if I can order a 2 GB RAM version with poe<br />
+And exit node is just a node with some extra configs and plugged into internet, then other nodes put its key?</p>
+</blockquote>
+
+<blockquote>
+  <p>ttk2 (@ttk2:matrix.org)<br />
+so our first gen exit nodes just has a list of keys that it would deploy a wireguard tunnel for (manual client config) but now our billing binary does dyanmic setup and registration<br />
+but yes an exit node is really just a glorified wireguard configurating script<br />
+you just script the steps to configure on each end, it’s pretty easy</p>
+</blockquote>
+
+<blockquote>
+  <p>benhylau<br />
+The last thing is local devices, if I plug raspberry pis into the network, they need to be natted?</p>
+</blockquote>
+
+<blockquote>
+  <p>ttk2 (@ttk2:matrix.org)<br />
+well that depends on what you want, what we do is setup iptables to nat ipv4 and client devices over the exit.<br />
+this has the upside of making sure babel only deals in ipv6</p>
+</blockquote>
+
+<blockquote>
+  <p>benhylau<br />
+This means the traffic will always go thru the exit and back?</p>
+</blockquote>
+
+<blockquote>
+  <p>ttk2 (@ttk2:matrix.org)<br />
+it’s just a couple of iptables lines I can share<br />
+yes, it makes the default ipv4 route (and thus the default route for client traffic) over the tunnel which will route all traffic that way.<br />
+you could provide a default ipv6 rotue that allows accessing mesh devices but not the internet or some variant, but we haven’t really explored that well<br />
+so I can’t share magic iptables lines to make it happen.<br />
+yes, it makes the default ipv4 route (and thus the default route for client traffic) over the tunnel which will route all traffic that way.</p>
+</blockquote>
+
+<blockquote>
+  <p>benhylau<br />
+Share this to me :) I want the other but perhaps this to start<br />
+But then I am also mindful apps don’t like IPv6 still, so… They kinda need the v4 nat</p>
+</blockquote>
+
+<blockquote>
+  <p>ttk2 (@_discord_267031307945508864:t2bot.io)<br />
+https://github.com/althea-mesh/althea_rs/blob/master/althea_kernel_interface/src/exit_client_tunnel.rs#L159<br />
+https://github.com/althea-mesh/althea_rs/blob/master/althea_kernel_interface/src/exit_server_tunnel.rs#L117</p>
+</blockquote>
+
+<blockquote>
+  <p>benhylau<br />
+Thanks so much for explaining all this</p>
+</blockquote>
+
+<blockquote>
+  <p>ttk2 (@ttk2:matrix.org)<br />
+No problem!</p>
+</blockquote>
+
+<h3 id="resources">Resources</h3>
+
+<ul>
+  <li><a href="https://forum.altheamesh.com/c/education-and-resources">Althea documentation</a></li>
+  <li><a href="https://github.com/althea-mesh/installer/commit/0e95832ff864e208eee45fbb085a88bcc3aba8ac">Althea exit server automation</a></li>
+</ul>
+
+
+				</div>
+			</main>
+		</div>
+		<script src="/meshnet/assets/js/zepto.min.js"></script>
+<script src="/meshnet/assets/js/lunar.min.js"></script>
+<script src="/meshnet/assets/js/prism.min.js"></script>
+<script src="/meshnet/assets/js/database.js"></script>
+<script src="/meshnet/assets/js/search.js"></script>
+<script src="/meshnet/assets/js/mobile-navigation.js"></script>
+
+	</body>
+</html>
